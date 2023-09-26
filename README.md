@@ -1,16 +1,17 @@
-# provider_template
+# Flutter template
 
-Template flutter project using provider
+Template Flutter project using provider, following the given architecture:
+Datasource <- Repository <- Domain <- Presentation
 
-## Getting Started
+<br/>
+<img src="https://github.com/AEZakmee/flutter_template/blob/master/architecture.png" width=600 align=center>
+<br/>
 
-This project is a starting point for a Flutter application.
+## Used Packages
+get_it - Dependency injection <br/>
+provider - State management <br/>
+dio - Api client <br/>
+hive & flutter_secure_storage - Cache client <br/>
+intl - Localizations <br/>
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This project is a starting point for a Flutter application with clean architecture.
