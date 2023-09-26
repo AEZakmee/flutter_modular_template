@@ -1,0 +1,13 @@
+#!/bin/bash
+
+PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+FILES=$(find . -name 'pubspec.yaml')
+
+# Loop through each file
+for FILE in $FILES
+do
+    echo "Running flutter pub get in $FILE"
+    cd "$(dirname "$FILE")" || exit 1
+    flutter pub get
+    cd "$PROJECT_ROOT" || exit 1
+done

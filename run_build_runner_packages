@@ -1,0 +1,80 @@
+#!/bin/bash
+
+PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# Read packages and versions from build_runner_packages.yaml
+packages=()
+hasUpdated=false
+modifiedProjects=()
+
+function add_unique {
+  local item=$1
+  local found=false
+  for i in "${modifiedProjects[@]}"; do
+    if [[ "$i" == "$item" ]]; then
+      found=true
+      break
+    fi
+  done
+
+  if [[ "$found" == false ]]; then
+    modifiedProjects+=("$item")
+  fi
+}
+
+while IFS=': ' read -r package version || [[ -n "$line" ]]; do
+  packages+=("$package:$version")
+done < "$PROJECT_ROOT/build_runner_packages.yaml"
+
+# Update versions in all pubspec.yaml files
+while IFS= read -r -d '' file; do
+  for record in "${packages[@]}"; do
+    package="${record%%:*}"
+    version="${record#*:}"
+
+    currentVersion="$(grep "$package:" "$file" | sed -e 's/.*\^//')"
+
+    # Check if package is defined in pubspec.yaml
+    if grep -q "$package:" "$file" && [ "$currentVersion" != "$version" ]; then
+      hasUpdated=true
+      echo "Updating $package to version $version in $file"
+      add_unique "$(dirname "$file")"
+      sed -i '' -E "s/$package:.*/$package: ^$version/g" "$file"
+    fi
+  done
+done < <(find . -name 'pubspec.yaml' -type f -print0)
+
+if [ "$hasUpdated" = true ]; then
+  echo "Finished updating versions in all pubspec.yaml files"
+fi
+
+./pub_get_packages
+
+FILES=()
+
+# Loop through the results of the find command
+while IFS= read -r file; do
+  # Use grep to check if the file contains "build_runner"
+  if grep -q "build_runner" "$file"; then
+    # If the file contains "build_runner", add its path to the FILES array
+    FILES+=("$file")
+  fi
+done < <(find . -name pubspec.yaml -type f)
+
+for file in "${FILES[@]}"; do
+  echo "Running build_runner in $file"
+  cd "$(dirname "$file")" || exit 1
+  flutter pub run build_runner build --delete-conflicting-outputs
+  cd "$PROJECT_ROOT" || exit 1
+done
+
+while IFS= read -r file; do
+  # Use grep to check if the file contains "build_runner"
+  if grep -q "intl_utils" "$file"; then
+    echo "Running generate intl"
+    cd "$(dirname "$file")" || exit 1
+    flutter pub global run intl_utils:generate
+  fi
+done < <(find . -name pubspec.yaml -type f)
+
+echo "Finished running generation packages"
