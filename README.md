@@ -4,7 +4,7 @@ Template Flutter project using provider, following the given architecture:
 Datasource <- Repository <- Domain <- Presentation
 
 <br/>
-<img src="https://github.com/AEZakmee/flutter_template/blob/master/architecture.png" width=600 align=center>
+<img src="architecture.png" width=800 align=center>
 <br/>
 
 ## Used Packages
