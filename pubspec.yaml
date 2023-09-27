@@ -13,7 +13,6 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: any
-  flutter_native_splash: any
   flex_color_scheme: any
   intl: any
 
@@ -29,13 +28,9 @@ dependencies:
   hive_flutter: ^1.1.0
   flutter_secure_storage: any
 
-  go_router: ^8.0.3
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  flutter_lints: any
 
   json_serializable: ^6.7.1
   build_runner: ^2.4.6
