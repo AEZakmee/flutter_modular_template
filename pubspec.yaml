@@ -22,6 +22,7 @@ dependencies:
   dio_smart_retry: any
 
   json_annotation: ^4.8.1
+  uuid: ^4.1.0
 
   hive: ^2.2.3
   hive_flutter: ^1.1.0

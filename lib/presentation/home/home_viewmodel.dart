@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import '../../app/model/answer/answer.dart';
 import '../../app/model/cocktail/cocktail.dart';
 import '../../app/model/cocktail/cocktail_list.dart';
 import '../../app/utils/extensions.dart';
@@ -61,10 +60,8 @@ final class HomeViewModel extends BaseViewModel {
 
   Future<void> addAnswer() async {
     await _answersService.cacheAnswer(
-      Answer(
-        name: 'Name',
-        years: Random().nextInt(10000),
-      ),
+      name: 'Name',
+      years: Random().nextInt(10000),
     );
   }
 

@@ -13,13 +13,14 @@ class AnswerRepository {
   }
 
   Future<void> cacheAnswer(Answer answer) async {
-    await _answerCacheClient.add(
+    await _answerCacheClient.put(
+      id: answer.id,
       data: answer.toCache(),
     );
   }
 
-  List<Answer> getAll() =>
-      _answerCacheClient.getAll().map((answer) => answer.toDomain()).toList();
+  List<Answer> get entries =>
+      _answerCacheClient.entries.map((answer) => answer.toDomain()).toList();
 
   Stream<List<Answer>> observeAnswers() => _answerCacheClient.observeAll().map(
         (data) => data.map((answer) => answer.toDomain()).toList(),

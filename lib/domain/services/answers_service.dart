@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 import '../../app/model/answer/answer.dart';
 import '../../repository/answer/answer_repo.dart';
 
@@ -10,10 +12,20 @@ class AnswersService {
 
   Future<void> clearAnswers() => _answerRepository.clearAnswers();
 
-  Future<void> cacheAnswer(Answer answer) =>
-      _answerRepository.cacheAnswer(answer);
+  Future<String> cacheAnswer({
+    required String name,
+    required int years,
+  }) async {
+    final id = const Uuid().v4();
 
-  List<Answer> getAnswers() => _answerRepository.getAll();
+    await _answerRepository.cacheAnswer(
+      Answer(id: id, name: name, years: years),
+    );
+
+    return id;
+  }
+
+  List<Answer> getAnswers() => _answerRepository.entries;
 
   Stream<List<Answer>> observeAnswers() => _answerRepository.observeAnswers();
 }

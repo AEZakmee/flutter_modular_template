@@ -9,7 +9,7 @@ class UserRepository {
   final UserTokensCacheClient _tokensCacheClient;
 
   Future<void> saveUserTokens(UserTokens tokens) async {
-    await _tokensCacheClient.save(
+    await _tokensCacheClient.put(
       data: UserTokensCache(
         accessToken: tokens.accessToken,
         refreshToken: tokens.refreshToken,
@@ -18,7 +18,7 @@ class UserRepository {
   }
 
   Future<void> clearUserTokens() async {
-    await _tokensCacheClient.clear();
+    await _tokensCacheClient.delete();
   }
 
   UserTokens getUserTokens() {

@@ -10,7 +10,7 @@ abstract class GenericCacheClient<T> {
 
   T? get() => _box.get(key) as T?;
 
-  Future<void> save({
+  Future<void> put({
     required T data,
   }) async {
     await _box.put(key, data);
@@ -20,10 +20,6 @@ abstract class GenericCacheClient<T> {
     if (_box.containsKey(key)) {
       await _box.delete(key);
     }
-  }
-
-  Future<void> clear() async {
-    await _box.clear();
   }
 
   Stream<T?> observe() => _box.watch(key: key).map(

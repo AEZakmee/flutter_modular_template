@@ -18,7 +18,7 @@ class SettingsRepository {
       return;
     }
 
-    await _settingsCacheClient.save(
+    await _settingsCacheClient.put(
       data: SettingsCache(themeType: themeType.toCache()),
     );
   }
@@ -38,7 +38,7 @@ class SettingsRepository {
       return;
     }
 
-    await _settingsCacheClient.save(
+    await _settingsCacheClient.put(
       data: SettingsCache(localeCode: code),
     );
   }
@@ -48,8 +48,4 @@ class SettingsRepository {
   Stream<String?> observeLocaleCode() => _settingsCacheClient.observe().map(
         (data) => data?.localeCode,
       );
-
-  Future<void> clearSettings() async {
-    await _settingsCacheClient.clear();
-  }
 }

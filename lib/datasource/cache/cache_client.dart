@@ -7,24 +7,22 @@ abstract class CacheClient<T> {
 
   final Box<T> _box;
 
-  List<T> getAll() => _box.values.toList();
+  List<T> get entries => _box.values.toList();
 
-  T? get(int index) => _box.getAt(index);
+  T? get(String id) => _box.get(id);
 
-  Future<void> add({
+  Future<void> put({
+    required String id,
     required T data,
-  }) async {
-    await _box.add(data);
-  }
+  }) =>
+      _box.put(id, data);
 
-  Future<void> addAll({
-    required List<T> data,
-  }) async {
-    await _box.addAll(data);
-  }
+  Future<void> putAll(Map<dynamic, T> entries) => _box.putAll(entries);
 
-  Future<void> delete(int index) async {
-    await _box.deleteAt(index);
+  Future<void> delete(String id) async {
+    if (_box.containsKey(id)) {
+      await _box.delete(id);
+    }
   }
 
   Future<void> clear() async {
@@ -33,5 +31,9 @@ abstract class CacheClient<T> {
 
   Stream<List<T>> observeAll() => _box.watch().map((_) {
         return _box.values.toList();
+      });
+
+  Stream<T?> observe(String id) => _box.watch(key: id).map((_) {
+        return _box.get(id);
       });
 }
