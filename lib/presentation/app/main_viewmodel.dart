@@ -1,4 +1,3 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 
 import '../../app/model/theme_type.dart';
@@ -67,13 +66,6 @@ final class MainViewModel extends BaseViewModel {
   }
 
   bool get isDarkTheme => _brightness == Brightness.dark;
-
-  ThemeData getTheme() => switch (_brightness) {
-        Brightness.light =>
-          FlexColorScheme.light(scheme: FlexScheme.barossa).toTheme,
-        Brightness.dark =>
-          FlexColorScheme.dark(scheme: FlexScheme.barossa).toTheme,
-      };
 
   Future<void> switchTheme() async {
     final newTheme = switch (_brightness) {

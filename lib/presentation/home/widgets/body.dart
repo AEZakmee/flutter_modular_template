@@ -34,7 +34,7 @@ class Body extends StatelessWidget {
               ),
               Text(
                 context.localizations.helloText,
-                style: Theme.of(context).textTheme.displayMedium,
+                style: context.textTheme.displayMedium,
               ),
               const SizedBox(height: 20),
               const Row(
@@ -44,8 +44,9 @@ class Body extends StatelessWidget {
                   LocaleSwitcher(name: 'Български', locale: Locale('bg')),
                 ],
               ),
-              TextButton(
+              MaterialButton(
                 onPressed: viewModel.logOut,
+                color: context.colors.primaryColor,
                 child: Text(context.localizations.logout),
               ),
               TextButton(

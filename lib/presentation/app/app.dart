@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/di/locator.dart';
+import '../theme/app_theme.dart';
 import '../utils/viewmodel_builder.dart';
 import 'main_viewmodel.dart';
 import 'router.dart';
@@ -19,11 +20,14 @@ class MyApp extends StatelessWidget {
         viewModelBuilder: locator,
         builder: (context, child) {
           final viewModel = context.watch<MainViewModel>();
+          final appTheme = AppTheme();
 
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             navigatorKey: navigatorKey,
-            theme: viewModel.getTheme(),
+            theme: viewModel.isDarkTheme
+                ? appTheme.darkTheme
+                : appTheme.lightTheme,
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

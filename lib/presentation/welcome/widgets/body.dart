@@ -8,8 +8,8 @@ class Body extends StatelessWidget {
   const Body({super.key});
 
   @override
-  Widget build(BuildContext context) => ColoredBox(
-        color: context.theme.canvasColor,
+  Widget build(BuildContext context) => Container(
+        color: context.colors.surfaceColor,
         child: Center(
           child: TextButton(
             onPressed: context.read<WelcomeViewModel>().logIn,
