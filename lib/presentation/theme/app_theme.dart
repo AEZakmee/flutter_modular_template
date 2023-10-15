@@ -6,49 +6,51 @@ const fontFamily = 'Roboto';
 
 class AppTheme {
   AppTheme({
-    AppColors? lightColors,
-    AppColors? darkColors,
-  })  : _lightColors = lightColors ?? AppColors.light(),
-        _darkColors = darkColors = AppColors.dark();
+    required Brightness brightness,
+  }) : _brightness = brightness;
 
-  final AppColors _lightColors;
-  final AppColors _darkColors;
+  final Brightness _brightness;
 
-  ThemeData get darkTheme => ThemeData(
+  ThemeData get theme => ThemeData(
         fontFamily: fontFamily,
         extensions: <ThemeExtension<dynamic>>[
-          _lightColors,
+          _colors,
         ],
-        primaryColor: _darkColors.primaryColor,
-        colorScheme: const ColorScheme.light().copyWith(
-          secondary: _darkColors.secondaryColor,
-          primary: _darkColors.primaryColor,
-          background: _darkColors.surfaceColor,
-          error: _darkColors.errorColor,
-          brightness: Brightness.light,
+        primaryColor: _colors.primaryColor,
+        colorScheme: _colorScheme,
+        appBarTheme: AppBarTheme(
+          backgroundColor: _colors.secondaryColor,
         ),
-        appBarTheme: AppBarTheme(backgroundColor: _darkColors.surfaceColor),
-        textTheme: textTheme,
+        textTheme: _textTheme,
       );
 
-  ThemeData get lightTheme => ThemeData(
-        fontFamily: fontFamily,
-        extensions: <ThemeExtension<dynamic>>[
-          _lightColors,
-        ],
-        primaryColor: _lightColors.primaryColor,
-        colorScheme: const ColorScheme.light().copyWith(
-          secondary: _lightColors.secondaryColor,
-          primary: _lightColors.primaryColor,
-          background: _lightColors.surfaceColor,
-          error: _lightColors.errorColor,
+  AppColors get _colors {
+    return switch (_brightness) {
+      Brightness.light => AppColors.light(),
+      Brightness.dark => AppColors.dark(),
+    };
+  }
+
+  ColorScheme get _colorScheme {
+    return switch (_brightness) {
+      Brightness.light => const ColorScheme.light().copyWith(
+          secondary: _colors.secondaryColor,
+          primary: _colors.primaryColor,
+          background: _colors.surfaceColor,
+          error: _colors.errorColor,
           brightness: Brightness.light,
         ),
-        appBarTheme: AppBarTheme(backgroundColor: _lightColors.surfaceColor),
-        textTheme: textTheme,
-      );
+      Brightness.dark => const ColorScheme.dark().copyWith(
+          secondary: _colors.secondaryColor,
+          primary: _colors.primaryColor,
+          background: _colors.surfaceColor,
+          error: _colors.errorColor,
+          brightness: Brightness.dark,
+        ),
+    };
+  }
 
-  TextTheme get textTheme => const TextTheme(
+  TextTheme get _textTheme => const TextTheme(
         displayLarge: TextStyle(
           fontSize: 48,
           fontWeight: FontWeight.w700,

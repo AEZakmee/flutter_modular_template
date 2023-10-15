@@ -20,14 +20,14 @@ class MyApp extends StatelessWidget {
         viewModelBuilder: locator,
         builder: (context, child) {
           final viewModel = context.watch<MainViewModel>();
-          final appTheme = AppTheme();
+          final appTheme = AppTheme(
+            brightness: viewModel.brightness,
+          );
 
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             navigatorKey: navigatorKey,
-            theme: viewModel.isDarkTheme
-                ? appTheme.darkTheme
-                : appTheme.lightTheme,
+            theme: appTheme.theme,
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

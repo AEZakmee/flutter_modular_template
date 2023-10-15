@@ -31,6 +31,7 @@ final class MainViewModel extends BaseViewModel {
   Locale? get locale => _locale;
 
   Brightness _brightness = Brightness.light;
+  Brightness get brightness => _brightness;
 
   bool _authenticated = false;
 
@@ -64,8 +65,6 @@ final class MainViewModel extends BaseViewModel {
       _authenticated = newAuthStatus;
     }).disposeWith(this);
   }
-
-  bool get isDarkTheme => _brightness == Brightness.dark;
 
   Future<void> switchTheme() async {
     final newTheme = switch (_brightness) {
