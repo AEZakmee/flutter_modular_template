@@ -1,7 +1,7 @@
 # Flutter template
 
-Template Flutter project using provider, following the given architecture:
-Datasource <- Repository <- Domain <- Presentation
+Modular Template Flutter project using provider, following the given architecture:
+Data <- Domain <- Presentation
 
 <br/>
 <img src="architecture.png" width=800 align=center>

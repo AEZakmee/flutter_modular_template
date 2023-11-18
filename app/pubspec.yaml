@@ -1,0 +1,79 @@
+name: provider_template
+description: Starting point of a provider application.
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+
+  core:
+    path: ../core
+  data:
+    path: ../data
+  domain:
+    path: ../domain
+  presentation:
+    path: ../presentation
+
+  get_it: any
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  generate: true
+  uses-material-design: true
+  assets:
+    - fonts/
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/roboto/Roboto-Black.ttf
+          weight: 900
+        - asset: fonts/roboto/Roboto-BlackItalic.ttf
+          weight: 900
+          style: italic
+
+
+        - asset: fonts/roboto/Roboto-Bold.ttf
+          weight: 700
+        - asset: fonts/roboto/Roboto-BoldItalic.ttf
+          weight: 700
+          style: italic
+
+
+        - asset: fonts/roboto/Roboto-Medium.ttf
+          weight: 500
+        - asset: fonts/roboto/Roboto-MediumItalic.ttf
+          weight: 500
+          style: italic
+
+        - asset: fonts/roboto/Roboto-Regular.ttf
+          weight: 400
+        - asset: fonts/roboto/Roboto-Italic.ttf
+          weight: 400
+          style: italic
+
+        - asset: fonts/roboto/Roboto-Light.ttf
+          weight: 300
+        - asset: fonts/roboto/Roboto-LightItalic.ttf
+          weight: 300
+          style: italic
+
+        - asset: fonts/roboto/Roboto-Thin.ttf
+          weight: 100
+        - asset: fonts/roboto/Roboto-ThinItalic.ttf
+          weight: 100
+          style: italic
