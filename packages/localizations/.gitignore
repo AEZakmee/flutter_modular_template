@@ -1,6 +1,2 @@
-*.iml
-.idea/
-/pubspec.lock
-.dart_tool/
-build/
+# Other
 *generated/
