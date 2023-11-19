@@ -12,7 +12,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  intl: any
+  localizations:
+    path: ../packages/localizations
 
   core:
     path: ../core

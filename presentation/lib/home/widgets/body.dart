@@ -64,7 +64,7 @@ class Body extends StatelessWidget {
                     (index) => Text(viewModel.answers[index].years),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),

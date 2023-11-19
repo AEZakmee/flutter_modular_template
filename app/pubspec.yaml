@@ -1,18 +1,15 @@
 name: provider_template
 description: Starting point of a provider application.
 publish_to: 'none'
-
 version: 1.0.0+1
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
-  intl: any
 
   core:
     path: ../core
