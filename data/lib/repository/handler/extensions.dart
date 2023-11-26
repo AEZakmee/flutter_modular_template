@@ -1,5 +1,5 @@
-import 'package:core/model/handler/data_response.dart';
-import 'package:core/model/handler/request_error.dart';
+import 'package:domain/model/handler/data_response.dart';
+import 'package:domain/model/handler/request_error.dart';
 
 import '../../datasource/api/exceptions/bad_request_exception.dart';
 import '../../datasource/api/exceptions/connection_exception.dart';

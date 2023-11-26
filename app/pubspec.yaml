@@ -10,9 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  dependencies:
+    path: ../common/dependencies
 
-  core:
-    path: ../core
   data:
     path: ../data
   domain:
@@ -20,13 +20,11 @@ dependencies:
   presentation:
     path: ../presentation
 
-  get_it: any
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  flutter_lints: ^2.0.0
+  dev_dependencies:
+    path: ../common/dev_dependencies
 
 flutter:
   generate: true

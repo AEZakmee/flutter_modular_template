@@ -1,5 +1,5 @@
-import 'package:core/model/cocktail/cocktail.dart';
-import 'package:core/model/cocktail/cocktail_list.dart';
+import 'package:domain/model/cocktail/cocktail.dart';
+import 'package:domain/model/cocktail/cocktail_list.dart';
 
 import '../../../datasource/api/cocktails/models/cocktail_response.dart';
 import '../../../datasource/api/cocktails/models/cocktails_list_response.dart';

@@ -1,4 +1,3 @@
-import 'package:core/di/locator.dart';
 import 'package:domain/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -7,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../theme/app_theme.dart';
 import '../utils/viewmodel_builder.dart';
+import 'di/locator.dart';
 import 'main_viewmodel.dart';
 import 'router.dart';
 

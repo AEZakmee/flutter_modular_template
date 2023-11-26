@@ -1,11 +1,11 @@
 import 'dart:math';
 
-import 'package:core/model/cocktail/cocktail.dart';
-import 'package:core/model/cocktail/cocktail_list.dart';
-import 'package:core/utils/extensions.dart';
+import 'package:domain/model/cocktail/cocktail.dart';
+import 'package:domain/model/cocktail/cocktail_list.dart';
 import 'package:domain/services/answers_service.dart';
 import 'package:domain/services/auth_service.dart';
 import 'package:domain/usecases/cocktails/fetch_coctails_use_case.dart';
+import 'package:domain/utils/extensions.dart';
 
 import '../mappers/answer_mapper.dart';
 import '../model/answer_ui.dart';

@@ -1,4 +1,4 @@
-import 'package:core/model/answer/answer.dart';
+import 'package:domain/model/answer/answer.dart';
 
 import '../../../datasource/cache/models/answer_cache.dart';
 

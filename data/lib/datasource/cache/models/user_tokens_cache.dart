@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:dependencies/exposer.dart';
 
 part 'user_tokens_cache.g.dart';
 

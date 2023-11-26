@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:data/repository/settings/settings_repo.dart';
+import '../repositories/settings_repository.dart';
 
 class LocalizationService {
   LocalizationService({

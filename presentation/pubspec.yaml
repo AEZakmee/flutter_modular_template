@@ -12,13 +12,16 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  localizations:
-    path: ../packages/localizations
 
-  core:
-    path: ../core
+  dependencies:
+    path: ../common/dependencies
+
   domain:
     path: ../domain
+  localizations:
+    path: ../libs/localizations
+  utils:
+    path: ../libs/utils
 
   cupertino_icons: any
   provider: any
@@ -26,8 +29,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  flutter_lints: ^2.0.0
+  dev_dependencies:
+    path: ../common/dev_dependencies
 
 flutter:
   generate: true

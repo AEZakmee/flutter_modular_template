@@ -1,6 +1,7 @@
-import 'package:core/model/answer/answer.dart';
-import 'package:data/repository/answer/answer_repo.dart';
-import 'package:uuid/uuid.dart';
+import 'package:dependencies/exposer.dart';
+
+import '../model/answer/answer.dart';
+import '../repositories/answer_repository.dart';
 
 class AnswersService {
   AnswersService({

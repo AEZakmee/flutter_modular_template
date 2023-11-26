@@ -1,4 +1,4 @@
-import 'package:core/model/theme_type.dart';
+import 'package:domain/model/theme_type.dart';
 
 import '../../../datasource/cache/models/theme_type_cache.dart';
 

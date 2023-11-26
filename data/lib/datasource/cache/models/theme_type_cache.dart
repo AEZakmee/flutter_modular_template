@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:dependencies/exposer.dart';
 
 part 'theme_type_cache.g.dart';
 

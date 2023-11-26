@@ -1,0 +1,27 @@
+name: dependencies
+description: "Common dependencies"
+publish_to: 'none'
+version: 0.0.1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  get_it: any
+
+  dio: any
+  dio_smart_retry: any
+
+  json_annotation: ^4.8.1
+
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  flutter_secure_storage: any
+
+  uuid: ^4.1.0
+
+dev_dependencies:
+  dev_dependencies:
+    path: ../dev_dependencies
+

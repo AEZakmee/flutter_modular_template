@@ -1,1 +1,1 @@
-include: ../core/analysis_options.yaml
+include: ../common/dev_dependencies/analysis_options.yaml

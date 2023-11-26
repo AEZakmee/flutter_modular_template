@@ -1,6 +1,6 @@
-import 'package:core/di/locator.dart';
 import 'package:flutter/material.dart';
 
+import '../app/di/locator.dart';
 import '../utils/viewmodel_builder.dart';
 import 'welcome_viewmodel.dart';
 import 'widgets/body.dart';
@@ -10,7 +10,7 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ViewModelBuilder<WelcomeViewModel>(
-        viewModelBuilder: locator<WelcomeViewModel>,
+        viewModelBuilder: locator,
         builder: (context, viewModel) => const Scaffold(
           body: Body(),
         ),

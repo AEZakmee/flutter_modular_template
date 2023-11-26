@@ -1,14 +1,16 @@
-import 'package:core/model/user_tokens.dart';
+import 'package:domain/model/user_tokens.dart';
+import 'package:domain/repositories/user_repository.dart';
 
 import '../../datasource/cache/models/user_tokens_cache.dart';
 import '../../datasource/cache/user/user_tokens_cache_client.dart';
 
-class UserRepository {
-  UserRepository({required UserTokensCacheClient tokensCacheClient})
+class UserRepositoryImpl implements UserRepository {
+  UserRepositoryImpl({required UserTokensCacheClient tokensCacheClient})
       : _tokensCacheClient = tokensCacheClient;
 
   final UserTokensCacheClient _tokensCacheClient;
 
+  @override
   Future<void> saveUserTokens(UserTokens tokens) async {
     await _tokensCacheClient.put(
       data: UserTokensCache(
@@ -18,10 +20,12 @@ class UserRepository {
     );
   }
 
+  @override
   Future<void> clearUserTokens() async {
     await _tokensCacheClient.delete();
   }
 
+  @override
   UserTokens getUserTokens() {
     final tokens = _tokensCacheClient.get();
 
@@ -35,7 +39,16 @@ class UserRepository {
     return UserTokens.empty();
   }
 
-  Stream<UserTokensCache> observeTokens() => _tokensCacheClient
-      .observe()
-      .map((data) => data ?? UserTokensCache(accessToken: ''));
+  @override
+  Stream<UserTokens> observeTokens() =>
+      _tokensCacheClient.observe().map((data) {
+        if (data != null) {
+          return UserTokens(
+            accessToken: data.accessToken,
+            refreshToken: data.refreshToken,
+          );
+        }
+
+        return UserTokens.empty();
+      });
 }

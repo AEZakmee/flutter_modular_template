@@ -1,5 +1,5 @@
-import 'package:core/model/user_tokens.dart';
-import 'package:data/repository/user/user_repo.dart';
+import '../model/user_tokens.dart';
+import '../repositories/user_repository.dart';
 
 class Auth {
   Auth({

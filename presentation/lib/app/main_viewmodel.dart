@@ -1,9 +1,9 @@
-import 'package:core/model/theme_type.dart';
-import 'package:core/utils/extensions.dart';
+import 'package:domain/model/theme_type.dart';
 import 'package:domain/services/auth_service.dart';
 import 'package:domain/services/localization_service.dart';
 import 'package:domain/services/theme_service.dart';
 import 'package:flutter/material.dart';
+import 'package:utils/let_extension.dart';
 
 import '../utils/base_viewmodel.dart';
 import '../utils/extensions.dart';

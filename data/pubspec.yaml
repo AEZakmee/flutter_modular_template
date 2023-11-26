@@ -10,27 +10,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  dependencies:
+    path: ../common/dependencies
 
-  core:
-    path: ../core
+  domain:
+    path: ../domain
+  utils:
+    path: ../libs/utils
 
-  get_it: any
 
-  dio: any
-  dio_smart_retry: any
 
-  json_annotation: ^4.8.1
-
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
-  flutter_secure_storage: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  dev_dependencies:
+    path: ../common/dev_dependencies
 
-  flutter_lints: ^2.0.0
-
-  json_serializable: ^6.7.1
-  build_runner: ^2.4.6
-  hive_generator: ^2.0.1
