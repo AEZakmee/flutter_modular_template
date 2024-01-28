@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Ask for the new package name
+read -p "Enter the new package name: " new_package_name
+
+# Set the package version assuming null safety
+package_version="^1.1.0"
+
+# Check if dev_dependencies already exists in pubspec.yaml
+if grep -q "dev_dependencies:" pubspec.yaml; then
+    # Add the new package to dev_dependencies
+    awk '/dev_dependencies:/ {print; print "  change_app_package_name: '$package_version'"; next} 1' pubspec.yaml > temp && mv temp pubspec.yaml
+else
+    # Add dev_dependencies block and the new package
+    echo -e "\ndev_dependencies:" >> pubspec.yaml
+    echo "  change_app_package_name: $package_version" >> pubspec.yaml
+fi
+
+# Update dependencies
+flutter pub get
+
+# Run the package to update the app's package name
+flutter pub run change_app_package_name:main $new_package_name
+
+# Print a success message
+echo "Package added and app package name updated successfully."
+
+
+echo "Removing change_app_package_name from dev_dependencies in pubspec.yaml"
+# Using awk to remove the line containing change_app_package_name
+awk '!/change_app_package_name/' pubspec.yaml > temp && mv temp pubspec.yaml
+flutter pub get
+echo "change_app_package_name removed successfully."
+

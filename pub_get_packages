@@ -1,6 +1,56 @@
 #!/bin/bash
 
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# Read packages and versions from packages.yaml
+packages=()
+hasUpdated=false
+modifiedProjects=()
+
+function add_unique {
+  local item=$1
+  local found=false
+  for i in "${modifiedProjects[@]}"; do
+    if [[ "$i" == "$item" ]]; then
+      found=true
+      break
+    fi
+  done
+
+  if [[ "$found" == false ]]; then
+    modifiedProjects+=("$item")
+  fi
+}
+
+while IFS=': ' read -r package version || [[ -n "$line" ]]; do
+  # Skip empty lines or lines with only whitespace
+  if [[ -n "$package" && -n "$version" ]]; then
+    packages+=("$package:$version")
+  fi
+done < "$PROJECT_ROOT/packages.yaml"
+
+# Update versions in all pubspec.yaml files
+while IFS= read -r -d '' file; do
+  for record in "${packages[@]}"; do
+    package="${record%%:*}"
+    version="${record#*:}"
+
+    currentVersion="$(grep "$package:" "$file" | sed -e 's/.*\^//')"
+
+    # Check if package is defined in pubspec.yaml
+    if grep -q "$package:" "$file" && [ "$currentVersion" != "$version" ]; then
+      hasUpdated=true
+      echo "Updating $package to version $version in $file"
+      add_unique "$(dirname "$file")"
+      sed -i '' -E "s/$package:.*/$package: ^$version/g" "$file"
+    fi
+  done
+done < <(find . -name 'pubspec.yaml' -type f -print0)
+
+if [ "$hasUpdated" = true ]; then
+  echo "Finished updating versions in all pubspec.yaml files"
+fi
+
 FILES=$(find . -name 'pubspec.yaml')
 
 # Loop through each file
