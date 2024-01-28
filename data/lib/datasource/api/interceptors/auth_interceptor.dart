@@ -1,10 +1,10 @@
-import 'package:dependencies/exposer.dart';
+import 'package:dio/dio.dart';
 import 'package:domain/services/auth_service.dart';
 
 class AuthInterceptor extends Interceptor {
   AuthInterceptor({required Auth auth}) : _auth = auth;
 
-  final  Auth _auth;
+  final Auth _auth;
 
   @override
   Future<void> onRequest(

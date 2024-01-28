@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dependencies/exposer.dart';
+import 'package:dio/dio.dart';
 
 import '../exceptions/bad_request_exception.dart';
 import '../exceptions/connection_exception.dart';

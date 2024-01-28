@@ -1,4 +1,4 @@
-import 'package:dependencies/exposer.dart';
+import 'package:hive/hive.dart';
 
 part 'answer_cache.g.dart';
 

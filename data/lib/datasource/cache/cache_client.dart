@@ -1,4 +1,4 @@
-import 'package:dependencies/exposer.dart';
+import 'package:hive/hive.dart';
 
 abstract class CacheClient<T> {
   CacheClient({

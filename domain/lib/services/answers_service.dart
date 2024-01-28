@@ -1,4 +1,4 @@
-import 'package:dependencies/exposer.dart';
+import 'package:uuid/uuid.dart';
 
 import '../model/answer/answer.dart';
 import '../repositories/answer_repository.dart';

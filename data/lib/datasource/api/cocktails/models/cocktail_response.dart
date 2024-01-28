@@ -1,4 +1,4 @@
-import 'package:dependencies/exposer.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'cocktail_response.g.dart';
 

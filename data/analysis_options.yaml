@@ -1,4 +1,4 @@
-include: ../common/dev_dependencies/analysis_options.yaml
+include: ../app/analysis_options.yaml
 
 analyzer:
   exclude:

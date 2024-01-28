@@ -1,4 +1,4 @@
-import 'package:dependencies/exposer.dart';
+import 'package:dio/dio.dart';
 
 class BadRequestException extends DioException {
   BadRequestException({required DioException super.error})

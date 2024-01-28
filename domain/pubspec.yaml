@@ -10,15 +10,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dependencies:
-    path: ../common/dependencies
 
   utils:
     path: ../libs/utils
 
+  uuid: ^4.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  dev_dependencies:
-    path: ../common/dev_dependencies
+
+  flutter_lints: ^2.0.0

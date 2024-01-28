@@ -10,8 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dependencies:
-    path: ../common/dependencies
 
   data:
     path: ../data
@@ -20,11 +18,19 @@ dependencies:
   presentation:
     path: ../presentation
 
+  get_it: ^7.6.4
+
+  dio: ^5.4.0
+  dio_smart_retry: ^6.0.0
+
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  dev_dependencies:
-    path: ../common/dev_dependencies
+
+  flutter_lints: ^2.0.0
 
 flutter:
   generate: true

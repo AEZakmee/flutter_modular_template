@@ -1,4 +1,4 @@
-import 'package:dependencies/exposer.dart';
+import 'package:dio/dio.dart';
 
 class ApiRequests {
   ApiRequests({required Dio dio}) : _dio = dio;
