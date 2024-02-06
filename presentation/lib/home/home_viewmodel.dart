@@ -5,7 +5,6 @@ import 'package:domain/model/cocktail/cocktail_list.dart';
 import 'package:domain/services/answers_service.dart';
 import 'package:domain/services/auth_service.dart';
 import 'package:domain/usecases/cocktails/fetch_coctails_use_case.dart';
-import 'package:domain/utils/extensions.dart';
 
 import '../mappers/answer_mapper.dart';
 import '../model/answer_ui.dart';
@@ -37,18 +36,14 @@ final class HomeViewModel extends BaseViewModel {
   Future<void> init() async {
     initAnswers();
 
-    final response = await _fetchCocktailsUseCase();
-
-    response.fold(
-      onSuccess: (data) {
+    await loadData<CocktailList>(
+      _fetchCocktailsUseCase,
+      onData: (data) {
         _cocktails = data;
-        setSuccess();
-      },
-      onError: (_) {
-        _cocktails = CocktailList.empty();
-        setError();
       },
     );
+
+    notifyListeners();
   }
 
   void initAnswers() {
