@@ -1,0 +1,22 @@
+android {
+    if (project.hasProperty("signing")) {
+        signingConfigs {
+            release {
+                storeFile file("keystore.jks")
+                storePassword keyStorePassword
+                keyAlias alias
+                keyPassword keyPass
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            if (project.hasProperty("signing")) {
+                signingConfig signingConfigs.release
+            } else {
+                signingConfig signingConfigs.debug
+            }
+        }
+    }
+}

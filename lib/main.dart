@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -14,6 +16,13 @@ Future<void> initApp() async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  //Use appFlavor to get the current flavor and set flavor-specific config
+  if (appFlavor == 'prod') {
+    log('This is the prod app');
+  } else if (appFlavor == 'dev') {
+    log('This is the dev app');
+  }
 
   await SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.edgeToEdge,
