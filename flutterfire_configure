@@ -1,0 +1,29 @@
+#!/bin/bash
+# Prompt for required variables for building
+read -p "Enter the Firebase project: " FIREBASE_PROJECT
+read -p "Enter android package name: " ANDROID_PACKAGE
+read -p "Enter ios bundle id: " IOS_BUNDLE
+
+printf "
+To get a Firebase token, install the Firebase CLI from https://firebase.google.com/docs/cli
+and run the following command in a console or terminal: firebase login:ci
+You will be prompted to log in with a Firebase account.
+Choose the correct Firebase account, and once logged in, you will find a token in the console.
+"
+
+read -p "Enter your Firebase authentication token: " FIREBASE_TOKEN
+echo
+
+./check_fire_tools
+
+dart pub global activate flutterfire_cli
+
+FLUTTER_ROOT_PACKAGE="$(./get_main_package)"
+cd "$FLUTTER_ROOT_PACKAGE" || exit 1
+
+flutterfire configure --project="${FIREBASE_PROJECT}" \
+--token="${FIREBASE_TOKEN}" \
+--android-package-name="${ANDROID_PACKAGE}" \
+--ios-bundle-id="${IOS_BUNDLE}" \
+--platforms=android,ios \
+--yes
