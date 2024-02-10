@@ -1,0 +1,4 @@
+ASSETCATALOG_COMPILER_APPICON_NAME = AppIconProd
+
+DISPLAY_NAME = Template - Prod
+PRODUCT_BUNDLE_IDENTIFIER = com.flutter.template
