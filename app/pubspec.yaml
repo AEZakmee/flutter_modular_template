@@ -26,6 +26,11 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
 
+  firebase_core: ^2.21.0
+  firebase_analytics: ^10.7.0
+  firebase_auth: ^4.12.1
+  firebase_remote_config: ^4.3.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -37,6 +42,8 @@ flutter:
   uses-material-design: true
   assets:
     - fonts/
+    - assets/
+    - assets/data/
 
   fonts:
     - family: Roboto

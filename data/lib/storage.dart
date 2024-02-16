@@ -5,11 +5,11 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:utils/let_extension.dart';
 
-import 'datasource/cache/models/answer_cache.dart';
-import 'datasource/cache/models/settings_cache.dart';
-import 'datasource/cache/models/theme_type_cache.dart';
-import 'datasource/cache/models/user_tokens_cache.dart';
-import 'datasource/const/storage_consts.dart';
+import 'cache/model/answer_cache.dart';
+import 'cache/model/settings_cache.dart';
+import 'cache/model/theme_type_cache.dart';
+import 'cache/model/user_tokens_cache.dart';
+import 'constants/storage_consts.dart';
 
 AndroidOptions _getAndroidOptions() =>
     const AndroidOptions(encryptedSharedPreferences: true);

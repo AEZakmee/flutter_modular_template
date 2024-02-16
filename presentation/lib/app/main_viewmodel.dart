@@ -1,5 +1,5 @@
 import 'package:domain/model/theme_type.dart';
-import 'package:domain/services/auth_service.dart';
+import 'package:domain/services/auth/auth.dart';
 import 'package:domain/services/localization_service.dart';
 import 'package:domain/services/theme_service.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +8,6 @@ import 'package:utils/let_extension.dart';
 import '../utils/base_viewmodel.dart';
 import '../utils/extensions.dart';
 import 'router.dart';
-
-enum SupportedLocales {
-  en,
-  bg,
-}
 
 final class MainViewModel extends BaseViewModel {
   MainViewModel({
@@ -55,7 +50,7 @@ final class MainViewModel extends BaseViewModel {
       });
     }).disposeWith(this);
 
-    _auth.observeAuthentication().listen((newAuthStatus) {
+    _auth.observeAuthenticated().listen((newAuthStatus) {
       if (_authenticated && !newAuthStatus) {
         navigatorKey.currentState?.pushNamedAndRemoveUntil(
           Routes.initial,
@@ -77,11 +72,6 @@ final class MainViewModel extends BaseViewModel {
 
   Future<void> setLocale(Locale locale) =>
       _localizationService.saveLocaleCode(locale.languageCode);
-
-  List<Locale> getSupportedLocales() => List.generate(
-        SupportedLocales.values.length,
-        (index) => Locale(SupportedLocales.values[index].name),
-      );
 
   Brightness get _deviceBrightness =>
       WidgetsBinding.instance.platformDispatcher.platformBrightness;

@@ -1,6 +1,6 @@
 import 'package:domain/model/theme_type.dart';
 
-import '../../../datasource/cache/models/theme_type_cache.dart';
+import '../../../cache/model/theme_type_cache.dart';
 
 extension ThemeTypeCacheExtensions on ThemeTypeCache? {
   ThemeType? toDomain() {

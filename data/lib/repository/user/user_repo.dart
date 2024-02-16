@@ -1,12 +1,13 @@
-import 'package:domain/model/user_tokens.dart';
+import 'package:domain/model/user/user_tokens.dart';
 import 'package:domain/repositories/user_repository.dart';
 
-import '../../datasource/cache/models/user_tokens_cache.dart';
-import '../../datasource/cache/user/user_tokens_cache_client.dart';
+import '../../cache/model/user_tokens_cache.dart';
+import '../../cache/user/user_tokens_cache_client.dart';
 
 class UserRepositoryImpl implements UserRepository {
-  UserRepositoryImpl({required UserTokensCacheClient tokensCacheClient})
-      : _tokensCacheClient = tokensCacheClient;
+  UserRepositoryImpl({
+    required UserTokensCacheClient tokensCacheClient,
+  }) : _tokensCacheClient = tokensCacheClient;
 
   final UserTokensCacheClient _tokensCacheClient;
 

@@ -1,7 +1,7 @@
 import 'package:domain/model/answer/answer.dart';
 import 'package:domain/repositories/answer_repository.dart';
 
-import '../../datasource/cache/answer/answer_cache_client.dart';
+import '../../cache/answer/answer_cache_client.dart';
 import 'mappers/answer_mapper.dart';
 
 class AnswerRepositoryImpl implements AnswerRepository {

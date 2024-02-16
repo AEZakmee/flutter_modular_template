@@ -1,4 +1,4 @@
-import '../model/user_tokens.dart';
+import '../model/user/user_tokens.dart';
 
 abstract interface class UserRepository {
   Future<void> saveUserTokens(UserTokens tokens);

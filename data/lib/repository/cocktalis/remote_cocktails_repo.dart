@@ -2,13 +2,13 @@ import 'package:domain/model/cocktail/cocktail_list.dart';
 import 'package:domain/model/handler/data_response.dart';
 import 'package:domain/repositories/cocktails_repository.dart';
 
-import '../../datasource/api/cocktails/cocktails_api_client.dart';
+import '../../source/api/cocktails/cocktails_api_client.dart';
 import '../handler/extensions.dart';
 import '../handler/request_handler.dart';
 import 'mappers/cocktails_mapper.dart';
 
-class CocktailsRepositoryImpl implements CocktailsRepository {
-  CocktailsRepositoryImpl({
+class RemoteCocktailsRepository implements CocktailsRepository {
+  RemoteCocktailsRepository({
     required CocktailsApiClient cocktailsApiClient,
     required RequestHandler requestHandler,
   })  : _cocktailsApiClient = cocktailsApiClient,

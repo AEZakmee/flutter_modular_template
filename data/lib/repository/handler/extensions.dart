@@ -1,8 +1,8 @@
 import 'package:domain/model/handler/data_response.dart';
 import 'package:domain/model/handler/request_error.dart';
 
-import '../../datasource/api/exceptions/bad_request_exception.dart';
-import '../../datasource/api/exceptions/connection_exception.dart';
+import '../../source/api/exceptions/bad_request_exception.dart';
+import '../../source/api/exceptions/connection_exception.dart';
 import 'network_result.dart';
 
 extension NetworkResultExtensions<U> on NetworkResult<U> {

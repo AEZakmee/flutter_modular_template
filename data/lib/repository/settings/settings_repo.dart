@@ -1,8 +1,8 @@
 import 'package:domain/model/theme_type.dart';
 import 'package:domain/repositories/settings_repository.dart';
 
-import '../../datasource/cache/models/settings_cache.dart';
-import '../../datasource/cache/settings/settings_cache_client.dart';
+import '../../cache/model/settings_cache.dart';
+import '../../cache/settings/settings_cache_client.dart';
 import 'mappers/theme_type_mapper.dart';
 
 class SettingsRepositoryImpl implements SettingsRepository {

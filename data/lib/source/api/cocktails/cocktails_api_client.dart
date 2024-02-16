@@ -1,6 +1,6 @@
+import '../../model/cocktails/cocktail_response.dart';
+import '../../model/cocktails/cocktails_list_response.dart';
 import '../api_requests.dart';
-import 'models/cocktail_response.dart';
-import 'models/cocktails_list_response.dart';
 
 class CocktailsApiClient {
   CocktailsApiClient({required ApiRequests requests}) : _requests = requests;

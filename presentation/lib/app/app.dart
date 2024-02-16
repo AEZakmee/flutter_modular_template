@@ -1,4 +1,4 @@
-import 'package:domain/services/auth_service.dart';
+import 'package:domain/services/auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localizations/generated/app_localizations.dart';
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
               GlobalCupertinoLocalizations.delegate,
             ],
             locale: viewModel.locale,
-            supportedLocales: viewModel.getSupportedLocales(),
+            supportedLocales: AppLocalizations.supportedLocales,
             initialRoute: isAuthenticated ? Routes.home : Routes.initial,
             onGenerateRoute: onGenerateRoute,
           );

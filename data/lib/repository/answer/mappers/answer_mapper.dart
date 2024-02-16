@@ -1,6 +1,6 @@
 import 'package:domain/model/answer/answer.dart';
 
-import '../../../datasource/cache/models/answer_cache.dart';
+import '../../../cache/model/answer_cache.dart';
 
 extension AnswerCacheMapper on AnswerCache {
   Answer toDomain() => Answer(
