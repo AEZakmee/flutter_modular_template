@@ -1,4 +1,4 @@
-import '../../app/model/answer/answer.dart';
+import '../../domain/model/answer/answer.dart';
 import '../model/answer_ui.dart';
 
 extension AnswerUIMapper on Answer {

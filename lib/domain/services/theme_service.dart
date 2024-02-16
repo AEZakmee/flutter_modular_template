@@ -1,5 +1,5 @@
-import '../../app/model/theme_type.dart';
-import '../../repository/settings/settings_repo.dart';
+import '../../data/repository/settings/settings_repo.dart';
+import '../model/theme_type.dart';
 
 class ThemeService {
   ThemeService({

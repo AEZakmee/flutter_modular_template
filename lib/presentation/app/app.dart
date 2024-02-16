@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
               GlobalCupertinoLocalizations.delegate,
             ],
             locale: viewModel.locale,
-            supportedLocales: viewModel.getSupportedLocales(),
+            supportedLocales: AppLocalizations.supportedLocales,
             initialRoute: initialRoute,
             onGenerateRoute: onGenerateRoute,
           );

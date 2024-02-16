@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../../app/model/handler/data_response.dart';
-import '../../app/utils/extensions.dart';
+import '../../domain/model/handler/data_response.dart';
+import '../../domain/utils/extensions.dart';
 import '../model/ui_state.dart';
 
 abstract base class BaseViewModel extends ChangeNotifier {

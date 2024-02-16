@@ -4,11 +4,11 @@ import 'dart:developer';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../datasource/cache/models/answer_cache.dart';
-import '../../datasource/cache/models/settings_cache.dart';
-import '../../datasource/cache/models/theme_type_cache.dart';
-import '../../datasource/cache/models/user_tokens_cache.dart';
-import '../constants/storage_consts.dart';
+import '../../data/cache/model/answer_cache.dart';
+import '../../data/cache/model/settings_cache.dart';
+import '../../data/cache/model/theme_type_cache.dart';
+import '../../data/cache/model/user_tokens_cache.dart';
+import '../../data/constants/storage_consts.dart';
 import '../utils/extensions.dart';
 
 AndroidOptions _getAndroidOptions() =>

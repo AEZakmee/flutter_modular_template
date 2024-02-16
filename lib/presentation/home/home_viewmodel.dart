@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import '../../app/model/cocktail/cocktail.dart';
-import '../../app/model/cocktail/cocktail_list.dart';
+import '../../domain/model/cocktail/cocktail.dart';
+import '../../domain/model/cocktail/cocktail_list.dart';
 import '../../domain/services/answers_service.dart';
-import '../../domain/services/auth_service.dart';
+import '../../domain/services/auth/auth.dart';
 import '../../domain/usecases/cocktails/fetch_coctails_use_case.dart';
 import '../mappers/answer_mapper.dart';
 import '../model/answer_ui.dart';
@@ -64,5 +64,5 @@ final class HomeViewModel extends BaseViewModel {
     await _answersService.clearAnswers();
   }
 
-  Future<void> logOut() => _auth.logOut();
+  Future<void> logOut() => _auth.signOut();
 }

@@ -4,15 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'app/di/locator.dart';
-import 'app/di/storage.dart';
-import 'domain/services/auth_service.dart';
+import 'domain/services/auth/auth.dart';
 import 'presentation/app/app.dart';
 import 'presentation/app/router.dart';
-
-Future<void> initApp() async {
-  await setupStorage();
-  setup();
-}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +34,7 @@ Future<void> main() async {
     ),
   );
 
-  await initApp();
+  await setupDependencies();
 
   final bool userAuthenticated = locator<Auth>().isAuthenticated;
 

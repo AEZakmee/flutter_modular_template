@@ -19,4 +19,9 @@ build_runner: 2.4.6
 hive_generator: 2.0.1
 json_serializable: 6.7.1
 
+firebase_core: 2.21.0
+firebase_analytics: 10.7.0
+firebase_auth: 4.12.1
+firebase_remote_config: 4.3.3
+
 flutter_lints: 2.0.0
