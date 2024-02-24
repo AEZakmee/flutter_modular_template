@@ -38,7 +38,7 @@ import '../../domain/services/theme_service.dart';
 import '../../domain/usecases/cocktails/fetch_coctails_use_case.dart';
 import '../../firebase_options.dart';
 import '../../presentation/app/main_viewmodel.dart';
-import '../../presentation/home/home_viewmodel.dart';
+import '../../presentation/home/viewmodel/home_viewmodel.dart';
 import '../../presentation/welcome/welcome_viewmodel.dart';
 import 'storage.dart';
 

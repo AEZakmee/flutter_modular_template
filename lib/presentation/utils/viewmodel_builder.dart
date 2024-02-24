@@ -6,14 +6,14 @@ import 'base_viewmodel.dart';
 final class ViewModelBuilder<T extends BaseViewModel> extends StatefulWidget {
   const ViewModelBuilder({
     required this.viewModelBuilder,
+    required this.builder,
     this.child,
-    this.builder,
     this.lazy = false,
     super.key,
   });
 
   final T Function() viewModelBuilder;
-  final TransitionBuilder? builder;
+  final Widget Function(BuildContext, T) builder;
   final Widget? child;
   final bool lazy;
 
@@ -36,7 +36,7 @@ class _ViewModelBuilderState<T extends BaseViewModel>
   Widget build(BuildContext context) => ChangeNotifierProvider<T>(
         lazy: widget.lazy,
         create: (context) => _viewModel,
-        builder: widget.builder,
+        builder: (context, _) => widget.builder(context, _viewModel),
         child: widget.child,
       );
 }
