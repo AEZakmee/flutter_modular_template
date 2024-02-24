@@ -5,7 +5,5 @@ class CocktailList {
     required this.drinks,
   });
 
-  factory CocktailList.empty() => const CocktailList(drinks: []);
-
   final List<Cocktail> drinks;
 }

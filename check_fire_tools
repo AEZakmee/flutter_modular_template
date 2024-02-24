@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if ! command -v firebase &> /dev/null; then
-    echo -e "Firebase tools not found. Installing..."
-    curl -sL https://firebase.tools | bash
-else
-    echo -e "Firebase tools already installed."
-fi

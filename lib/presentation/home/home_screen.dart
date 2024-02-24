@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../../app/di/locator.dart';
 import '../utils/ui_state_builder.dart';
 import '../utils/viewmodel_builder.dart';
-import 'home_viewmodel.dart';
+import 'viewmodel/home_viewmodel.dart';
 import 'widgets/app_bar.dart';
-import 'widgets/body.dart';
+import 'widgets/home_body.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,11 +13,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ViewModelBuilder<HomeViewModel>(
         viewModelBuilder: locator<HomeViewModel>,
-        builder: (context, viewModel) => const Scaffold(
+        builder: (context, viewModel) => Scaffold(
           body: UIStateBuilder<HomeViewModel>(
-            successState: Body(),
+            successState: HomeBody(
+              submitAction: viewModel.submitAction,
+            ),
           ),
-          appBar: MainAppBar(),
+          appBar: const MainAppBar(),
         ),
       );
 }
