@@ -1,36 +1,41 @@
-import 'dart:math';
-
-import 'package:domain/model/cocktail/cocktail.dart';
 import 'package:domain/model/cocktail/cocktail_list.dart';
 import 'package:domain/services/answers_service.dart';
 import 'package:domain/services/auth/auth.dart';
 import 'package:domain/usecases/cocktails/fetch_coctails_use_case.dart';
 
-import '../mappers/answer_mapper.dart';
-import '../model/answer_ui.dart';
-import '../utils/base_viewmodel.dart';
-import '../utils/extensions.dart';
+import '../../mappers/answer_mapper.dart';
+import '../../utils/base_state_viewmodel.dart';
+import '../../utils/extensions.dart';
+import 'home_action.dart';
+import 'home_state.dart';
 
-final class HomeViewModel extends BaseViewModel {
+final class HomeViewModel extends BaseStateViewModel<HomeState, HomeAction> {
   HomeViewModel({
     required FetchCocktailsUseCase fetchCocktailsUseCase,
     required AnswersService answersService,
     required Auth auth,
   })  : _fetchCocktailsUseCase = fetchCocktailsUseCase,
         _answersService = answersService,
-        _auth = auth;
+        _auth = auth,
+        super(
+          initialState: HomeState(
+            cocktails: List.empty(),
+            answers: List.empty(),
+          ),
+        );
 
   final FetchCocktailsUseCase _fetchCocktailsUseCase;
   final AnswersService _answersService;
   final Auth _auth;
 
-  CocktailList _cocktails = CocktailList.empty();
-  List<AnswerUI> _answers = List.empty();
-
-  List<Cocktail> get cocktails => _cocktails.drinks;
-  int get cocktailsLength => cocktails.length;
-
-  List<AnswerUI> get answers => _answers;
+  @override
+  Future<void> submitAction(HomeAction action) async {
+    await action.when(
+      addAnswer: _addAnswer,
+      clearAnswers: _clearAnswers,
+      logOut: _logOut,
+    );
+  }
 
   @override
   Future<void> init() async {
@@ -39,7 +44,7 @@ final class HomeViewModel extends BaseViewModel {
     await loadData<CocktailList>(
       _fetchCocktailsUseCase,
       onData: (data) {
-        _cocktails = data;
+        state = state.copyWith(cocktails: data.drinks);
       },
     );
 
@@ -47,23 +52,27 @@ final class HomeViewModel extends BaseViewModel {
   }
 
   void initAnswers() {
-    _answers = _answersService.getAnswers().map((e) => e.toUI()).toList();
+    state = state.copyWith(
+      answers: _answersService.getAnswers().map((e) => e.toUI()).toList(),
+    );
     _answersService.observeAnswers().listen((items) {
-      _answers = items.map((e) => e.toUI()).toList();
+      state = state.copyWith(
+        answers: items.map((e) => e.toUI()).toList(),
+      );
       notifyListeners();
     }).disposeWith(this);
   }
 
-  Future<void> addAnswer() async {
+  Future<void> _addAnswer(int answer) async {
     await _answersService.cacheAnswer(
       name: 'Name',
-      years: Random().nextInt(10000),
+      years: answer,
     );
   }
 
-  Future<void> clearAnswers() async {
+  Future<void> _clearAnswers() async {
     await _answersService.clearAnswers();
   }
 
-  Future<void> logOut() => _auth.signOut();
+  Future<void> _logOut() => _auth.signOut();
 }

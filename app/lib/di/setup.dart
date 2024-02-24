@@ -39,7 +39,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:hive/hive.dart';
 import 'package:presentation/app/main_viewmodel.dart';
-import 'package:presentation/home/home_viewmodel.dart';
+import 'package:presentation/home/viewmodel/home_viewmodel.dart';
 import 'package:presentation/welcome/welcome_viewmodel.dart';
 
 import '../firebase_options.dart';

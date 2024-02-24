@@ -30,7 +30,12 @@ if ! [[ ! $REPLY =~ ^[Nn]$ ]]; then
     exit 0
 fi
 
-./check_fire_tools
+if ! command -v firebase &> /dev/null; then
+    echo -e "Firebase tools not found. Installing..."
+    curl -sL https://firebase.tools | bash
+else
+    echo -e "Firebase tools already installed."
+fi
 
 echo -e "Firebase app id is generated in firebase when setting up android firebase project setup"
 read -p "Enter your Firebase project's app ID: " APP_ID
