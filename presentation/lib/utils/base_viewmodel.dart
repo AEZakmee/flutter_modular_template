@@ -15,14 +15,17 @@ abstract base class BaseViewModel extends ChangeNotifier {
 
   void loading() {
     _uiState = UIState.loading;
+    notifyListeners();
   }
 
   void success() {
     _uiState = UIState.success;
+    notifyListeners();
   }
 
   void failure() {
     _uiState = UIState.error;
+    notifyListeners();
   }
 
   Future<void> init() async {}

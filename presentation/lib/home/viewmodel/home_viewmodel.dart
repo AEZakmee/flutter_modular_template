@@ -4,12 +4,14 @@ import 'package:domain/services/auth/auth.dart';
 import 'package:domain/usecases/cocktails/fetch_coctails_use_case.dart';
 
 import '../../mappers/answer_mapper.dart';
-import '../../utils/base_state_viewmodel.dart';
 import '../../utils/extensions.dart';
+import '../../utils/state_viewmodel.dart';
 import 'home_action.dart';
+import 'home_event.dart';
 import 'home_state.dart';
 
-final class HomeViewModel extends BaseStateViewModel<HomeState, HomeAction> {
+final class HomeViewModel
+    extends StateViewModel<HomeState, HomeAction, HomeEvent> {
   HomeViewModel({
     required FetchCocktailsUseCase fetchCocktailsUseCase,
     required AnswersService answersService,
@@ -44,22 +46,29 @@ final class HomeViewModel extends BaseStateViewModel<HomeState, HomeAction> {
     await loadData<CocktailList>(
       _fetchCocktailsUseCase,
       onData: (data) {
-        state = state.copyWith(cocktails: data.drinks);
+        updateState(
+          state.copyWith(cocktails: data.drinks),
+        );
       },
     );
 
-    notifyListeners();
+    //Send event to the UI
+    submitEvent(const HomeEvent.showError());
   }
 
   void initAnswers() {
-    state = state.copyWith(
-      answers: _answersService.getAnswers().map((e) => e.toUI()).toList(),
+    updateState(
+      state.copyWith(
+        answers: _answersService.getAnswers().map((e) => e.toUI()).toList(),
+      ),
     );
+
     _answersService.observeAnswers().listen((items) {
-      state = state.copyWith(
-        answers: items.map((e) => e.toUI()).toList(),
+      updateState(
+        state.copyWith(
+          answers: items.map((e) => e.toUI()).toList(),
+        ),
       );
-      notifyListeners();
     }).disposeWith(this);
   }
 
@@ -71,6 +80,9 @@ final class HomeViewModel extends BaseStateViewModel<HomeState, HomeAction> {
   }
 
   Future<void> _clearAnswers() async {
+    //Send event to the UI
+    submitEvent(const HomeEvent.showError());
+
     await _answersService.clearAnswers();
   }
 

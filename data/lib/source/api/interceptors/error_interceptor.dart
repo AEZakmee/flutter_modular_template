@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -12,38 +13,31 @@ class ErrorInterceptor extends Interceptor {
     DioException err,
     ErrorInterceptorHandler handler,
   ) async {
-    switch (err.response?.statusCode ?? -1) {
-      case 400:
-        return handler.next(
-          BadRequestException(
+    if (_isConnectionError(err)) {
+      log('Connection error');
+      return handler.next(
+        ConnectionException(
+          error: err,
+        ),
+      );
+    }
+
+    log('Dio error: ${err.response?.statusCode}');
+    return handler.next(
+      switch (err.response?.statusCode) {
+        400 => BadRequestException(
             error: err,
           ),
-        );
-    }
-
-    if (err.error is SocketException) {
-      return handler.next(
-        ConnectionException(
-          error: err,
-          errorMessage: 'internet-exception',
-        ),
-      );
-    }
-
-    if (err.type == DioExceptionType.connectionTimeout ||
-        err.type == DioExceptionType.receiveTimeout) {
-      return handler.next(
-        ConnectionException(
-          error: err,
-          errorMessage: 'timed-out',
-        ),
-      );
-    }
-
-    return handler.next(
-      OtherException(
-        error: err,
-      ),
+        _ => OtherException(
+            error: err,
+          )
+      },
     );
+  }
+
+  bool _isConnectionError(DioException error) {
+    return error.error is SocketException ||
+        error.type == DioExceptionType.connectionTimeout ||
+        error.type == DioExceptionType.receiveTimeout;
   }
 }

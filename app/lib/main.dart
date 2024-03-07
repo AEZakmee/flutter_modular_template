@@ -1,5 +1,5 @@
-import 'dart:developer';
-
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:presentation/app/app.dart';
@@ -8,13 +8,6 @@ import 'di/setup.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  //Use appFlavor to get the current flavor and set flavor-specific config
-  if (appFlavor == 'prod') {
-    log('This is the prod app');
-  } else if (appFlavor == 'dev') {
-    log('This is the dev app');
-  }
 
   await SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.edgeToEdge,
@@ -33,6 +26,17 @@ Future<void> main() async {
   );
 
   await setupDependencies();
+
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+
+  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(
+    !kDebugMode,
+  );
 
   runApp(
     const MyApp(),

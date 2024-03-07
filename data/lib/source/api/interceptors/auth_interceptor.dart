@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:domain/services/auth/auth.dart';
 
 class AuthInterceptor extends Interceptor {
-  AuthInterceptor({required Auth auth}) : _auth = auth;
+  AuthInterceptor({
+    required Auth auth,
+  }) : _auth = auth;
 
   final Auth _auth;
 
@@ -11,8 +15,13 @@ class AuthInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    final token = await _auth.accessToken();
-    options.headers['Authorization'] = 'Bearer $token';
+    final bearer = options.headers[HttpHeaders.authorizationHeader] as String?;
+
+    if (bearer == null) {
+      final token = await _auth.accessToken();
+
+      options.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
+    }
 
     return handler.next(options);
   }

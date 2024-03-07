@@ -26,10 +26,13 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
 
+  flutter_dotenv: ^5.1.0
+
   firebase_core: ^2.21.0
   firebase_analytics: ^10.7.0
   firebase_auth: ^4.12.1
   firebase_remote_config: ^4.3.3
+  firebase_crashlytics: ^3.4.16
 
 dev_dependencies:
   flutter_test:
@@ -41,6 +44,7 @@ flutter:
   generate: true
   uses-material-design: true
   assets:
+    - env/
     - fonts/
     - assets/
     - assets/data/
