@@ -29,11 +29,17 @@ abstract class CacheClient<T> {
     await _box.clear();
   }
 
-  Stream<List<T>> observeAll() => _box.watch().map((_) {
-        return _box.values.toList();
-      });
+  Stream<Iterable<T>> observeAll() async* {
+    yield _box.values;
+    yield* _box.watch().map((_) {
+      return _box.values;
+    });
+  }
 
-  Stream<T?> observe(String id) => _box.watch(key: id).map((_) {
-        return _box.get(id);
-      });
+  Stream<T?> observe(String id) async* {
+    yield _box.get(id);
+    yield* _box.watch(key: id).map((_) {
+      return _box.get(id);
+    });
+  }
 }

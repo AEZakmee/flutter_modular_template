@@ -9,14 +9,13 @@ class LocalizationService {
 
   final SettingsRepository _settingsRepository;
 
-  String get localeCode {
-    final String deviceLocaleCode = Platform.localeName.split('_')[0];
-    return _settingsRepository.getLocaleCode() ?? deviceLocaleCode;
-  }
-
   Future<void> saveLocaleCode(String code) =>
       _settingsRepository.saveLocaleCode(code);
 
-  Stream<String?> observeLocaleCode() =>
-      _settingsRepository.observeLocaleCode();
+  Stream<String?> observeLocaleCode() {
+    final String deviceLocaleCode = Platform.localeName.split('_')[0];
+    return _settingsRepository.observeLocaleCode().map(
+          (event) => event ?? deviceLocaleCode,
+        );
+  }
 }

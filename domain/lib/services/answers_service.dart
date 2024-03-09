@@ -25,7 +25,5 @@ class AnswersService {
     return id;
   }
 
-  List<Answer> getAnswers() => _answerRepository.entries;
-
   Stream<List<Answer>> observeAnswers() => _answerRepository.observeAnswers();
 }

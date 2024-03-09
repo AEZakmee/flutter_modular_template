@@ -27,9 +27,6 @@ class SettingsRepositoryImpl implements SettingsRepository {
   }
 
   @override
-  ThemeType? getThemeType() => _settingsCacheClient.get()?.themeType.toDomain();
-
-  @override
   Stream<ThemeType?> observeThemeType() => _settingsCacheClient.observe().map(
         (data) => data?.themeType.toDomain(),
       );
@@ -48,9 +45,6 @@ class SettingsRepositoryImpl implements SettingsRepository {
       data: SettingsCache(localeCode: code),
     );
   }
-
-  @override
-  String? getLocaleCode() => _settingsCacheClient.get()?.localeCode;
 
   @override
   Stream<String?> observeLocaleCode() => _settingsCacheClient.observe().map(

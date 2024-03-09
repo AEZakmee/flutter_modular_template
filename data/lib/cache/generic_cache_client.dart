@@ -22,7 +22,12 @@ abstract class GenericCacheClient<T> {
     }
   }
 
-  Stream<T?> observe() => _box.watch(key: key).map(
-        (event) => event.value as T?,
-      );
+  Stream<T?> observe() async* {
+    yield _box.get(key);
+    yield* _box.watch(key: key).map(
+      (event) {
+        return event.value as T?;
+      },
+    );
+  }
 }

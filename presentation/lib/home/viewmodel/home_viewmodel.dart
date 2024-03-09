@@ -57,12 +57,6 @@ final class HomeViewModel
   }
 
   void initAnswers() {
-    updateState(
-      state.copyWith(
-        answers: _answersService.getAnswers().map((e) => e.toUI()).toList(),
-      ),
-    );
-
     _answersService.observeAnswers().listen((items) {
       updateState(
         state.copyWith(

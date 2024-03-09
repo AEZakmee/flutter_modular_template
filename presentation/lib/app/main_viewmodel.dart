@@ -32,10 +32,6 @@ final class MainViewModel extends BaseViewModel {
 
   @override
   Future<void> init() async {
-    _locale = Locale(_localizationService.localeCode);
-    _brightness = _handleBrightnessTheme(_themeService.themeType);
-    _authenticated = _auth.isAuthenticated;
-
     _localizationService.observeLocaleCode().listen((event) {
       event?.let((code) {
         _locale = Locale(code);

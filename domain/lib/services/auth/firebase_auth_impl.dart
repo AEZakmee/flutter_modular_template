@@ -19,9 +19,12 @@ class FirebaseAuthImpl implements Auth {
   }
 
   @override
-  Stream<bool> observeAuthenticated() => _firebaseAuth.userChanges().map(
-        (user) => user != null,
-      );
+  Stream<bool> observeAuthenticated() async* {
+    yield _firebaseAuth.currentUser != null;
+    yield* _firebaseAuth.userChanges().map(
+          (user) => user != null,
+        );
+  }
 
   @override
   Future<void> signIn() => _firebaseAuth.signInAnonymously();

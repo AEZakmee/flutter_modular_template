@@ -24,10 +24,6 @@ class AnswerRepositoryImpl implements AnswerRepository {
   }
 
   @override
-  List<Answer> get entries =>
-      _answerCacheClient.entries.map((answer) => answer.toDomain()).toList();
-
-  @override
   Stream<List<Answer>> observeAnswers() => _answerCacheClient.observeAll().map(
         (data) => data.map((answer) => answer.toDomain()).toList(),
       );
