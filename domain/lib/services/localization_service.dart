@@ -10,7 +10,7 @@ class LocalizationService {
   final SettingsRepository _settingsRepository;
 
   Future<void> saveLocaleCode(String code) =>
-      _settingsRepository.saveLocaleCode(code);
+      _settingsRepository.updateLocaleCode(code);
 
   Stream<String?> observeLocaleCode() {
     final String deviceLocaleCode = Platform.localeName.split('_')[0];

@@ -1,4 +1,4 @@
-import 'package:domain/services/auth/auth.dart';
+import 'package:domain/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localizations/generated/app_localizations.dart';

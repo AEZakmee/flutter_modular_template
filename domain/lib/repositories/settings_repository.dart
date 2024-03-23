@@ -1,8 +1,10 @@
-import '../model/theme_type.dart';
+import '../model/settings/theme_type.dart';
 
 abstract interface class SettingsRepository {
-  Future<void> saveThemeType(ThemeType themeType);
+  ThemeType? getThemeType();
+  Future<void> updateThemeType(ThemeType themeType);
   Stream<ThemeType?> observeThemeType();
-  Future<void> saveLocaleCode(String code);
+  Future<void> updateLocaleCode(String code);
   Stream<String?> observeLocaleCode();
+  Future<void> clearCache();
 }

@@ -1,6 +1,8 @@
-import 'package:data/cache/answer/answer_cache_client.dart';
-import 'package:data/cache/settings/settings_cache_client.dart';
-import 'package:data/cache/user/user_tokens_cache_client.dart';
+import 'package:data/cache/cache_handler.dart';
+import 'package:data/cache/cocktails/cocktails_cache_client.dart';
+import 'package:data/cache/model/cocktails/cocktail_cache.dart';
+import 'package:data/cache/settings/locale_cache_client.dart';
+import 'package:data/cache/settings/theme_type_cache_client.dart';
 import 'package:data/constants/storage_consts.dart';
 import 'package:hive/hive.dart';
 
@@ -9,18 +11,28 @@ import '../locator.dart';
 void cache() {
   locator
     ..registerLazySingleton(
-      () => UserTokensCacheClient(
-        box: Hive.box(StorageConsts.hiveEncryptedStorageKey),
-      ),
-    )
-    ..registerLazySingleton(
-      () => SettingsCacheClient(
+      () => ThemeTypeCacheClient(
+        //If encryption is needed, use StorageConsts.hiveEncryptedStorageKey
         box: Hive.box(StorageConsts.hiveStorageKey),
       ),
     )
     ..registerLazySingleton(
-      () => AnswerCacheClient(
-        box: Hive.box(StorageConsts.hiveAnswerStorageKey),
+      () => LocaleCacheClient(
+        box: Hive.box(StorageConsts.hiveStorageKey),
+      ),
+    )
+    ..registerLazySingleton(
+      () => CocktailsCacheClient(
+        box: Hive.box(StorageConsts.hiveCocktailStorageKey),
+      ),
+    )
+    ..registerLazySingleton(
+      () => CacheHandler(
+        boxes: [
+          Hive.box(StorageConsts.hiveEncryptedStorageKey),
+          Hive.box(StorageConsts.hiveStorageKey),
+          Hive.box<CocktailCache>(StorageConsts.hiveCocktailStorageKey),
+        ],
       ),
     );
 }

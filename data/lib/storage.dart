@@ -5,10 +5,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:utils/let_extension.dart';
 
-import 'cache/model/answer_cache.dart';
-import 'cache/model/settings_cache.dart';
-import 'cache/model/theme_type_cache.dart';
-import 'cache/model/user_tokens_cache.dart';
+import 'cache/model/cocktails/cocktail_cache.dart';
+import 'cache/model/settings/theme_type_cache.dart';
 import 'constants/storage_consts.dart';
 
 AndroidOptions _getAndroidOptions() =>
@@ -17,10 +15,8 @@ AndroidOptions _getAndroidOptions() =>
 Future<void> setupStorage() async {
   await Hive.initFlutter();
   Hive
-    ..registerAdapter(UserTokensCacheAdapter())
-    ..registerAdapter(SettingsCacheAdapter())
-    ..registerAdapter(ThemeTypeCacheAdapter())
-    ..registerAdapter(AnswerCacheAdapter());
+    ..registerAdapter(CocktailCacheAdapter())
+    ..registerAdapter(ThemeTypeCacheAdapter());
 
   const secureStorage = FlutterSecureStorage();
   String? key;
@@ -60,5 +56,5 @@ Future<void> setupStorage() async {
   await Hive.openBox(StorageConsts.hiveStorageKey);
 
   //Specific boxes
-  await Hive.openBox<AnswerCache>(StorageConsts.hiveAnswerStorageKey);
+  await Hive.openBox<CocktailCache>(StorageConsts.hiveCocktailStorageKey);
 }

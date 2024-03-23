@@ -1,4 +1,4 @@
-import '../model/theme_type.dart';
+import '../model/settings/theme_type.dart';
 import '../repositories/settings_repository.dart';
 
 class ThemeService {
@@ -8,8 +8,15 @@ class ThemeService {
 
   final SettingsRepository _settingsRepository;
 
-  Future<void> saveThemeType(ThemeType themeType) =>
-      _settingsRepository.saveThemeType(themeType);
+  Future<void> switchTheme({required ThemeType currentTheme}) {
+    final newTheme = switch (currentTheme) {
+      ThemeType.light => ThemeType.dark,
+      ThemeType.dark => ThemeType.light,
+    };
+    return _settingsRepository.updateThemeType(newTheme);
+  }
+
+  ThemeType? getThemeType() => _settingsRepository.getThemeType();
 
   Stream<ThemeType?> observeThemeType() =>
       _settingsRepository.observeThemeType();

@@ -1,11 +1,11 @@
-import 'package:domain/constants/remote_config_constants.dart';
-import 'package:domain/model/api_type.dart';
-import 'package:domain/model/login_type.dart';
+import 'package:domain/model/remote_config/feature_favorite.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
+import '../config/constants.dart';
+import '../config/remote_config.dart';
 import '../firebase_options.dart';
 import 'locator.dart';
 
@@ -30,6 +30,11 @@ Future<void> setupFirebase() async {
       () => FirebaseAnalytics.instanceFor(
         app: locator(),
       ),
+    )
+    ..registerLazySingleton(
+      () => RemoteConfig(
+        firebaseRemoteConfig: locator(),
+      ),
     );
 
   await locator<FirebaseRemoteConfig>().setConfigSettings(
@@ -39,8 +44,7 @@ Future<void> setupFirebase() async {
     ),
   );
   await locator<FirebaseRemoteConfig>().setDefaults({
-    RemoteConfigConsts.loginType: LoginType.custom.id,
-    RemoteConfigConsts.apiType: ApiType.local.id,
+    RemoteConfigConsts.featureFavorite: FeatureFavorite.disabled.id,
   });
   await locator<FirebaseRemoteConfig>().fetchAndActivate();
 }

@@ -5,7 +5,7 @@ part 'cocktail_response.g.dart';
 @JsonSerializable()
 class CocktailResponse {
   const CocktailResponse({
-    this.idDrink,
+    required this.idDrink,
     this.strDrink,
     this.strDrinkAlternate,
     this.strTags,
@@ -61,7 +61,7 @@ class CocktailResponse {
   factory CocktailResponse.fromJson(Map<String, dynamic> json) =>
       _$CocktailResponseFromJson(json);
 
-  final String? idDrink;
+  final String idDrink;
   final String? strDrink;
   final String? strDrinkAlternate;
   final String? strTags;

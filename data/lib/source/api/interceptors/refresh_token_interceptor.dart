@@ -1,8 +1,7 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:domain/services/auth/auth.dart';
+import 'package:domain/services/auth.dart';
 
 class RefreshTokenInterceptor extends Interceptor {
   RefreshTokenInterceptor({
@@ -11,7 +10,9 @@ class RefreshTokenInterceptor extends Interceptor {
   })  : _auth = auth,
         _dio = dio;
 
+  //Auth should have client with different Dio impl. Otherwise stack overflow
   final Auth _auth;
+  //This is the dio impl this interceptor is used on
   final Dio _dio;
 
   @override
@@ -19,21 +20,22 @@ class RefreshTokenInterceptor extends Interceptor {
     DioException err,
     ErrorInterceptorHandler handler,
   ) async {
-    if (err.response?.statusCode == 401) {
-      //no refresh at the moment
-      await _auth.signOut();
+    //This is not needed for firebase auth, but if custom auth impl it is
+    //When using custom authentication
+    //New API client is required for authentication only
+    //This interceptor should be used only on the other clients, not AUTH
+    //Auth -> Auth Repository -> Auth Client -> Dio
 
+    if (err.response?.statusCode == 401) {
       log('Token expired, refreshing tokens');
       // final newTokens = await _auth.refreshTokens();
-      // No implementation for that at the moment.
-      final newTokens = null;
 
-      if (newTokens.areValid()) {
-        err.requestOptions.headers[HttpHeaders.authorizationHeader] =
-            '${newTokens.tokenType} ${newTokens.accessToken}';
-
-        return handler.resolve(await _dio.fetch(err.requestOptions));
-      }
+      // if (newTokens.areValid()) {
+      //   err.requestOptions.headers[HttpHeaders.authorizationHeader] =
+      //   '${newTokens.tokenType} ${newTokens.accessToken}';
+      //
+      //   return handler.resolve(await _dio.fetch(err.requestOptions));
+      // }
     }
 
     return handler.next(err);

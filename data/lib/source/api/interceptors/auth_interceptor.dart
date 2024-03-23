@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:domain/services/auth/auth.dart';
+import 'package:domain/services/auth.dart';
 
 class AuthInterceptor extends Interceptor {
   AuthInterceptor({

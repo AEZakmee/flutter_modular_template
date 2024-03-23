@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:domain/model/handler/data_response.dart';
-import 'package:domain/utils/extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../model/ui_state.dart';
@@ -29,25 +27,6 @@ abstract base class BaseViewModel extends ChangeNotifier {
   }
 
   Future<void> init() async {}
-
-  Future<void> loadData<T>(
-    Future<DataResponse<T>> Function() fetchData, {
-    void Function(T data)? onData,
-  }) async {
-    final response = await fetchData();
-
-    response.fold(
-      onSuccess: (data) {
-        if (onData != null) {
-          onData(data);
-        }
-        success();
-      },
-      onError: (_) {
-        failure();
-      },
-    );
-  }
 
   void addDisposable(StreamSubscription<dynamic> subscription) {
     _subscriptions.add(subscription);

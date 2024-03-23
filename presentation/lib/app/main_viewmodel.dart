@@ -1,24 +1,23 @@
-import 'package:domain/model/theme_type.dart';
-import 'package:domain/services/auth/auth.dart';
+import 'package:domain/services/auth.dart';
 import 'package:domain/services/localization_service.dart';
-import 'package:domain/services/theme_service.dart';
 import 'package:flutter/material.dart';
 import 'package:utils/let_extension.dart';
 
+import '../controllers/theme_controller.dart';
 import '../utils/base_viewmodel.dart';
 import '../utils/extensions.dart';
 import 'router.dart';
 
 final class MainViewModel extends BaseViewModel {
   MainViewModel({
-    required ThemeService themeService,
+    required ThemeController themeController,
     required LocalizationService localizationService,
     required Auth auth,
-  })  : _themeService = themeService,
+  })  : _themeController = themeController,
         _localizationService = localizationService,
         _auth = auth;
 
-  final ThemeService _themeService;
+  final ThemeController _themeController;
   final LocalizationService _localizationService;
   final Auth _auth;
 
@@ -39,11 +38,9 @@ final class MainViewModel extends BaseViewModel {
       });
     }).disposeWith(this);
 
-    _themeService.observeThemeType().listen((event) {
-      event?.let((themeType) {
-        _brightness = _handleBrightnessTheme(themeType);
-        notifyListeners();
-      });
+    _themeController.observeBrightness().listen((brightness) {
+      _brightness = brightness;
+      notifyListeners();
     }).disposeWith(this);
 
     _auth.observeAuthenticated().listen((newAuthStatus) {
@@ -55,30 +52,5 @@ final class MainViewModel extends BaseViewModel {
       }
       _authenticated = newAuthStatus;
     }).disposeWith(this);
-  }
-
-  Future<void> switchTheme() async {
-    final newTheme = switch (_brightness) {
-      Brightness.light => ThemeType.dark,
-      Brightness.dark => ThemeType.light,
-    };
-
-    await _themeService.saveThemeType(newTheme);
-  }
-
-  Future<void> setLocale(Locale locale) =>
-      _localizationService.saveLocaleCode(locale.languageCode);
-
-  Brightness get _deviceBrightness =>
-      WidgetsBinding.instance.platformDispatcher.platformBrightness;
-
-  Brightness _handleBrightnessTheme(ThemeType? themeType) {
-    final savedBrightness = themeType?.let(
-      (value) => switch (themeType) {
-        ThemeType.light => Brightness.light,
-        ThemeType.dark => Brightness.dark,
-      },
-    );
-    return savedBrightness ?? _deviceBrightness;
   }
 }

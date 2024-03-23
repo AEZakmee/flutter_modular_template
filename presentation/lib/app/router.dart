@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../home/home_screen.dart';
-import '../welcome/welcome_screen.dart';
+import '../screens/auth/auth_screen.dart';
+import '../screens/home/home_screen.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -14,7 +14,7 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case Routes.initial:
       return MaterialPageRoute(
-        builder: (_) => const WelcomeScreen(),
+        builder: (_) => const AuthScreen(),
       );
     case Routes.home:
       return MaterialPageRoute(

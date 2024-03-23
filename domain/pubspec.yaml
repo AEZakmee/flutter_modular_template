@@ -15,9 +15,9 @@ dependencies:
     path: ../libs/utils
 
   uuid: ^4.1.0
+  collection: ^1.18.0
 
   firebase_auth: ^4.12.1
-  firebase_remote_config: ^4.3.3
 
 dev_dependencies:
   flutter_test:

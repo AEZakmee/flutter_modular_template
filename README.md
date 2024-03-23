@@ -1,6 +1,6 @@
 # Flutter template
 
-Template Flutter project using provider, following the architecture shown below:
+Template Flutter project using provider with single state, events and actions, following the architecture shown below:
 
 <br/>
 <img src="architecture.png" width=800 align=center>
@@ -40,7 +40,7 @@ To integrate Firebase into the template project, use the Firebase CLI for Flutte
 
 ### For local Firebase setup:
 
-Use the flutterfire_configure_manual script in the project directory or perform manual setup by executing the following commands:
+Use the flutterfire_configure script in the project directory or perform manual setup by executing the following commands:
 
 ```
 curl -sL https://firebase.tools | bash
@@ -50,4 +50,5 @@ flutterfire configure
 ```
 
 Ensure you have the required tools installed and follow the authentication steps for Firebase.
+The template project utilises most of the firebase packages, so remove those that are not needed.
 

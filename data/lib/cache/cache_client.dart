@@ -7,7 +7,10 @@ abstract class CacheClient<T> {
 
   final Box<T> _box;
 
-  List<T> get entries => _box.values.toList();
+  Iterable<T> get entries => _box.values;
+  Iterable<String> get keys => _box.keys.map((key) => key.toString());
+
+  bool isEmpty() => _box.values.isEmpty;
 
   T? get(String id) => _box.get(id);
 
