@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:presentation/app/app.dart';
+import 'package:presentation/app/router/setup.dart';
 
 import 'di/setup.dart';
 
@@ -38,6 +39,7 @@ Future<void> main() async {
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   }
 
+  setupRouter();
   runApp(
     const MyApp(),
   );

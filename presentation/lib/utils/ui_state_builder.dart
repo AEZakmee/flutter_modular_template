@@ -20,7 +20,9 @@ class UIStateBuilder<T extends BaseViewModel> extends StatelessWidget {
   Widget build(BuildContext context) {
     return switch (context.select((T viewModel) => viewModel.uiState)) {
       UIState.success => successState,
-      UIState.error => errorState ?? const Text('Something went wrong'),
+      UIState.error => Center(
+          child: errorState ?? const Text('Something went wrong'),
+        ),
       UIState.loading => const Center(
           child: CircularProgressIndicator(),
         )

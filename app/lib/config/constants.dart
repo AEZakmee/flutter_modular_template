@@ -1,3 +1,3 @@
 class RemoteConfigConsts {
-  static const String featureFavorite = 'featureFavorite';
+  static const String detailsFeature = 'detailsFeature';
 }

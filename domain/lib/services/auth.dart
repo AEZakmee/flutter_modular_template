@@ -14,12 +14,9 @@ class Auth {
     return token ?? '';
   }
 
-  Stream<bool> observeAuthenticated() async* {
-    yield _firebaseAuth.currentUser != null;
-    yield* _firebaseAuth.userChanges().map(
-          (user) => user != null,
-        );
-  }
+  Stream<bool> observeAuthenticated() => _firebaseAuth.userChanges().map(
+        (user) => user != null,
+      );
 
   Future<bool> signIn() async {
     //This is only to mock login

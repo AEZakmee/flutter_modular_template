@@ -16,7 +16,6 @@ class HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final showFavoriteIcon = context.read<HomeViewModel>().showFavoriteIcon;
     return SafeArea(
       child: Selector<HomeViewModel, List<CocktailUI>>(
         selector: (context, viewModel) => viewModel.state.cocktails,
@@ -35,7 +34,7 @@ class HomeBody extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(cocktail.title),
-                        if (cocktail.favorite && showFavoriteIcon)
+                        if (cocktail.favorite)
                           const Padding(
                             padding: EdgeInsets.only(left: 8),
                             child: Icon(Icons.favorite),

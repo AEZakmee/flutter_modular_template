@@ -10,10 +10,10 @@ class RemoteConfig {
 
   final FirebaseRemoteConfig _firebaseRemoteConfig;
 
-  FeatureFavorite get featureFavorite {
+  DetailsFeature get detailsFeature {
     final typeId = _firebaseRemoteConfig.getInt(
-      RemoteConfigConsts.featureFavorite,
+      RemoteConfigConsts.detailsFeature,
     );
-    return FeatureFavorite.getType(typeId);
+    return DetailsFeature.getType(typeId);
   }
 }

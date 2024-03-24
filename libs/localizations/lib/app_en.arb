@@ -4,5 +4,6 @@
   "genericError" : "Something went wrong",
   "favoriteUpdated" : "Favorites updated",
   "areYouSureLogout" : "Are you sure you want to logout?",
-  "confirm" : "Yes"
+  "confirm" : "Yes",
+  "featureDisabled" : "This feature is disabled"
 }

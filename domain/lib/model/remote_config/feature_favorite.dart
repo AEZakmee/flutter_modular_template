@@ -1,20 +1,18 @@
-enum FeatureFavorite {
+enum DetailsFeature {
   disabled(id: 0),
-  partial(id: 1),
-  enabled(id: 2);
+  sheet(id: 1),
+  screen(id: 2);
 
-  const FeatureFavorite({required this.id});
+  const DetailsFeature({required this.id});
 
-  static FeatureFavorite getType(int id) {
+  static DetailsFeature getType(int id) {
     return switch (id) {
-      0 => FeatureFavorite.disabled,
-      1 => FeatureFavorite.partial,
-      2 => FeatureFavorite.enabled,
-      _ => FeatureFavorite.disabled,
+      0 => DetailsFeature.disabled,
+      1 => DetailsFeature.sheet,
+      2 => DetailsFeature.screen,
+      _ => DetailsFeature.disabled,
     };
   }
 
   final int id;
-
-  bool isEnabled() => this == FeatureFavorite.enabled;
 }

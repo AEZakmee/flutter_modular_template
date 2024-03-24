@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../app/di/locator.dart';
-import '../../app/router.dart';
 import '../../utils/extensions.dart';
 import '../../utils/snack_bar_helper.dart';
 import '../../utils/viewmodel_builder.dart';
@@ -19,13 +18,6 @@ class AuthScreen extends StatelessWidget {
           context.localizations.genericError,
         );
 
-    void navigateToHome() {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        Routes.home,
-        (route) => false,
-      );
-    }
-
     return ViewModelBuilder<AuthViewModel>(
       viewModelBuilder: locator,
       builder: (context, viewModel) => Scaffold(
@@ -34,7 +26,6 @@ class AuthScreen extends StatelessWidget {
           onEvent: (event) {
             event.when(
               showError: showError,
-              navigateHome: navigateToHome,
             );
           },
           child: AuthBody(

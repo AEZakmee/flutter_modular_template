@@ -4,5 +4,6 @@
   "genericError" : "Нещо се обърка",
   "favoriteUpdated" : "Любими актуализирани успешно",
   "areYouSureLogout" : "Сигурни ли сте че искате да излезете?",
-  "confirm" : "Да"
+  "confirm" : "Да",
+  "featureDisabled" : "Тази функционалност е забранена"
 }

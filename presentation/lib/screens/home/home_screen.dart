@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../app/di/locator.dart';
 import '../../sheets/cocktail_details/cocktail_details_sheet.dart';
+import '../../utils/extensions.dart';
+import '../../utils/snack_bar_helper.dart';
 import '../../utils/viewmodel_builder.dart';
 import '../../utils/viewmodel_event_handler.dart';
 import 'viewmodel/home_event.dart';
@@ -23,6 +25,10 @@ class HomeScreen extends StatelessWidget {
       );
     }
 
+    void showFeatureDisabled() => SnackBarHelper(context).showErrorSnackBar(
+          context.localizations.featureDisabled,
+        );
+
     return ViewModelBuilder<HomeViewModel>(
       viewModelBuilder: locator,
       builder: (context, viewModel) => Scaffold(
@@ -31,6 +37,7 @@ class HomeScreen extends StatelessWidget {
           onEvent: (event) {
             event.when(
               openCocktailSheet: openCocktailSheet,
+              showFeatureDisabled: showFeatureDisabled,
             );
           },
           child: HomeBody(

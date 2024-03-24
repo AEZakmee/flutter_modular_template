@@ -40,11 +40,12 @@ Future<void> setupFirebase() async {
   await locator<FirebaseRemoteConfig>().setConfigSettings(
     RemoteConfigSettings(
       fetchTimeout: const Duration(minutes: 1),
-      minimumFetchInterval: const Duration(hours: 12),
+      //Show be at least 6 hours. For testing is 1 minute
+      minimumFetchInterval: const Duration(minutes: 1),
     ),
   );
   await locator<FirebaseRemoteConfig>().setDefaults({
-    RemoteConfigConsts.featureFavorite: FeatureFavorite.disabled.id,
+    RemoteConfigConsts.detailsFeature: DetailsFeature.disabled.id,
   });
   await locator<FirebaseRemoteConfig>().fetchAndActivate();
 }

@@ -23,6 +23,7 @@ void viewmodel() {
         localizationService: locator(),
         themeController: locator(),
         auth: locator(),
+        router: locator(),
       ),
     )
     ..registerFactory(
@@ -35,7 +36,8 @@ void viewmodel() {
         cocktailsService: locator(),
         themeController: locator(),
         auth: locator(),
-        favoriteEnabled: locator<RemoteConfig>().featureFavorite.isEnabled(),
+        router: locator(),
+        detailsFeature: locator<RemoteConfig>().detailsFeature,
       ),
     )
     ..registerFactoryParam<CocktailDetailsViewModel, String, void>(

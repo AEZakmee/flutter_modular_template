@@ -24,9 +24,7 @@ final class AuthViewModel
   Future<void> _logIn() async {
     final success = await _auth.signIn();
 
-    if (success) {
-      submitEvent(const AuthEvent.navigateHome());
-    } else {
+    if (!success) {
       submitEvent(const AuthEvent.showError());
     }
   }
