@@ -52,3 +52,19 @@ flutterfire configure
 Ensure you have the required tools installed and follow the authentication steps for Firebase.
 The template project utilises most of the firebase packages, so remove those that are not needed.
 
+### Mason usage
+First activate it globally:
+```
+dart pub global activate mason
+```
+
+If you want to add new bricks, use:
+```
+mason new brickname
+mason add brickname -path /path/to/the/brick
+```
+
+To use the brick:
+```
+mason make brickname
+```

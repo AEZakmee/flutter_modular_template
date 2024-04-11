@@ -20,3 +20,6 @@ build/
 
 # IOS
 podfile.lock
+
+# Mason
+.mason/
