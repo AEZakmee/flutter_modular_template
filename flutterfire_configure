@@ -16,7 +16,7 @@ firebase login
 FLUTTER_ROOT_PACKAGE="$(./get_main_package)"
 cd "$FLUTTER_ROOT_PACKAGE" || exit 1
 
-dart pub global activate flutterfire_cli
+dart pub global activate flutterfire_cli 0.2.7
 
 flutterfire configure --project="${FIREBASE_PROJECT}" \
 --token="${FIREBASE_TOKEN}" \

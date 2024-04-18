@@ -2,13 +2,15 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:presentation/app/app.dart';
 import 'package:presentation/app/router/setup.dart';
 
 import 'di/setup.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.edgeToEdge,
@@ -40,6 +42,8 @@ Future<void> main() async {
   }
 
   setupRouter();
+
+  FlutterNativeSplash.remove();
   runApp(
     const MyApp(),
   );

@@ -34,6 +34,17 @@ Open the project in Xcode and within the Runner/Flutter folder, find configurati
 
 Feel free to include additional properties as necessary.
 
+### Branding
+## App Icons
+Android -> Open the android project and click on generate image asset -> then select the flavor you want to generate the logos for.
+IOS -> Open the ios project in xcode, in Runner/Assets update the icon assets (1024x1024 size)
+
+## Splash screen
+In the flutter app folder update the flutter_native_splash yaml files. Then generate for the flavors
+```
+dart run flutter_native_splash:create --flavors dev,prod
+```
+
 ## Firebase Setup
 
 To integrate Firebase into the template project, use the Firebase CLI for Flutter. Note: Firebase files are git-ignored by default

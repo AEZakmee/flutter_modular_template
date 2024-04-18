@@ -34,15 +34,12 @@ while IFS= read -r -d '' file; do
   for record in "${packages[@]}"; do
     package="${record%%:*}"
     version="${record#*:}"
-
-    currentVersion="$(grep "$package:" "$file" | sed -e 's/.*\^//')"
-
     # Check if package is defined in pubspec.yaml
-    if grep -q "$package:" "$file" && [ "$currentVersion" != "$version" ]; then
+    if grep -q "$package:" "$file"; then
       hasUpdated=true
       echo "Updating $package to version $version in $file"
       add_unique "$(dirname "$file")"
-      sed -i '' -E "s/$package:.*/$package: ^$version/g" "$file"
+      sed -i '' -E "s/$package:.*/$package: $version/g" "$file"
     fi
   done
 done < <(find . -name 'pubspec.yaml' -type f -print0)

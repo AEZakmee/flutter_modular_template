@@ -1,39 +1,41 @@
-cupertino_icons: 1.0.6
-intl: 0.18.0
+cupertino_icons: ^1.0.6
+intl: ^0.18.0
 
-get_it: 7.6.4
-provider: 6.1.1
+get_it: ^7.6.4
+provider: ^6.1.1
 
-dio: 5.4.0
-dio_smart_retry: 6.0.0
+dio: ^5.4.0
+dio_smart_retry: ^6.0.0
 
-uuid: 4.1.0
+uuid: ^4.1.0
 
-hive: 2.2.3
-hive_flutter: 1.1.0
-flutter_secure_storage: 9.0.0
+hive: ^2.2.3
+hive_flutter: ^1.1.0
+flutter_secure_storage: ^9.0.0
 
-go_router: 13.2.1
+go_router: ^13.2.1
 
-flutter_staggered_animations: 1.1.1
+flutter_staggered_animations: ^1.1.1
 
-collection: 1.18.0
+collection: ^1.18.0
 
-flutter_dotenv: 5.1.0
+flutter_dotenv: ^5.1.0
 
-json_annotation: 4.8.1
+json_annotation: ^4.8.1
 
-build_runner: 2.4.6
-hive_generator: 2.0.1
-json_serializable: 6.7.1
+flutter_native_splash: ^2.4.0
 
-firebase_core: 2.21.0
-firebase_analytics: 10.7.0
-firebase_auth: 4.12.1
-firebase_remote_config: 4.3.3
-firebase_crashlytics: 3.4.16
+build_runner: ^2.4.6
+hive_generator: ^2.0.1
+json_serializable: ^6.7.1
 
-freezed: 2.4.7
-freezed_annotation: 2.4.1
+firebase_core: ^2.21.0
+firebase_analytics: ^10.7.0
+firebase_remote_config: ^4.3.3
+firebase_crashlytics: ^3.4.16
+firebase_auth: ^4.12.1
 
-flutter_lints: 2.0.0
+freezed: ^2.4.7
+freezed_annotation: ^2.4.1
+
+flutter_lints: ^2.0.0

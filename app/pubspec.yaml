@@ -23,6 +23,8 @@ dependencies:
   dio: ^5.4.0
   dio_smart_retry: ^6.0.0
 
+  flutter_native_splash: ^2.4.0
+
   hive: ^2.2.3
   hive_flutter: ^1.1.0
 
