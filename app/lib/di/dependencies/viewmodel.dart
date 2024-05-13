@@ -29,6 +29,7 @@ void viewmodel() {
     ..registerFactory(
       () => AuthViewModel(
         auth: locator(),
+        router: locator(),
       ),
     )
     ..registerFactory(

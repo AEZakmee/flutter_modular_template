@@ -13,6 +13,7 @@ class Routes {
 final routes = [
   GoRoute(
     path: Routes.home,
+    name: Routes.home,
     builder: (_, __) => const HomeScreen(),
     routes: [
       GoRoute(
@@ -26,6 +27,7 @@ final routes = [
   ),
   GoRoute(
     path: Routes.auth,
+    name: Routes.auth,
     builder: (_, __) => const AuthScreen(),
   ),
 ];
