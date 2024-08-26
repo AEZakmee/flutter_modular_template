@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../app/di/locator.dart';
-import '../../sheets/cocktail_details/cocktail_details_sheet.dart';
 import '../../utils/extensions.dart';
 import '../../utils/snack_bar_helper.dart';
 import '../../utils/viewmodel_builder.dart';
@@ -16,15 +15,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<void> openCocktailSheet(String id) async {
-      await showModalBottomSheet(
-        context: context,
-        builder: (context) => CocktailDetailsSheet(
-          cocktailId: id,
-        ),
-      );
-    }
-
     void showFeatureDisabled() => SnackBarHelper(context).showErrorSnackBar(
           context.localizations.featureDisabled,
         );
@@ -36,7 +26,6 @@ class HomeScreen extends StatelessWidget {
           viewModel: viewModel,
           onEvent: (event) {
             event.when(
-              openCocktailSheet: openCocktailSheet,
               showFeatureDisabled: showFeatureDisabled,
             );
           },

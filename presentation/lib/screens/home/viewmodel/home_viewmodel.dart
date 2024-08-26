@@ -62,8 +62,12 @@ final class HomeViewModel
       DetailsFeature.disabled => submitEvent(
           const HomeEvent.showFeatureDisabled(),
         ),
-      DetailsFeature.sheet => submitEvent(HomeEvent.openCocktailSheet(id)),
-      DetailsFeature.screen => _router.goNamed(
+      DetailsFeature.sheet => _router.pushNamed(
+          Routes.details,
+          pathParameters: {'id': id},
+          queryParameters: {'showSheet': true.toString()},
+        ),
+      DetailsFeature.screen => _router.pushNamed(
           Routes.details,
           pathParameters: {'id': id},
         ),
