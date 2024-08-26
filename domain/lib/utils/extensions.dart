@@ -6,9 +6,15 @@ extension DataResponseExtension<T> on DataResponse<T> {
     required TResult Function(T data) onSuccess,
     TResult Function(RequestError error)? onError,
   }) {
-    if (data != null) {
-      return onSuccess(data as T);
-    }
-    return onError?.call(error ?? GenericError());
+    return switch (this) {
+      SuccessfulDataResponse() => onSuccess(
+          (this as SuccessfulDataResponse).data as T,
+        ),
+      FailureDataResponse() => onError?.call(
+          (this as FailureDataResponse).error ?? GenericError(),
+        )
+    };
   }
+
+  bool isSuccessful() => this is SuccessfulDataResponse;
 }

@@ -1,6 +1,7 @@
 import 'package:domain/model/cocktails/cocktail.dart';
 import 'package:domain/model/handler/data_response.dart';
 import 'package:domain/repositories/cocktails_repository.dart';
+import 'package:domain/utils/extensions.dart';
 
 import '../../cache/cocktails/cocktails_cache_client.dart';
 import '../../source/api/cocktails/cocktails_api_client.dart';
@@ -45,21 +46,21 @@ class CocktailsRepositoryImpl implements CocktailsRepository {
       _cocktailsApiClient.fetchAll,
     );
 
-    final cocktails = response
+    await response
         .toDataResponse((data) => data.drinks.map((e) => e.toDomain()))
-        .data;
+        .fold(
+      onSuccess: (cocktails) async {
+        final existingCocktails = _cocktailsCacheClient.keys;
 
-    if (cocktails != null) {
-      final existingCocktails = _cocktailsCacheClient.keys;
+        final cocktailsToAdd = {
+          for (final cocktail in cocktails)
+            if (!existingCocktails.contains(cocktail.id))
+              cocktail.id: cocktail.toCache(),
+        };
 
-      final cocktailsToAdd = {
-        for (final cocktail in cocktails)
-          if (!existingCocktails.contains(cocktail.id))
-            cocktail.id: cocktail.toCache(),
-      };
-
-      await _cocktailsCacheClient.putAll(cocktailsToAdd);
-    }
+        await _cocktailsCacheClient.putAll(cocktailsToAdd);
+      },
+    );
   }
 
   Future<Iterable<Cocktail>> _fetchFromAssets() async {
@@ -69,7 +70,13 @@ class CocktailsRepositoryImpl implements CocktailsRepository {
 
   @override
   DataResponse<Cocktail> getCocktail(String id) {
-    return DataResponse(data: _cocktailsCacheClient.get(id)?.toDomain());
+    final data = _cocktailsCacheClient.get(id)?.toDomain();
+
+    return data != null
+        ? SuccessfulDataResponse(
+            data: _cocktailsCacheClient.get(id)?.toDomain(),
+          )
+        : FailureDataResponse();
   }
 
   @override

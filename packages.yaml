@@ -1,5 +1,5 @@
 cupertino_icons: ^1.0.6
-intl: ^0.18.0
+intl: ^0.19.0
 
 get_it: ^7.6.4
 provider: ^6.1.1

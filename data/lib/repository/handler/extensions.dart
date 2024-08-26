@@ -6,12 +6,13 @@ import '../../source/api/exceptions/connection_exception.dart';
 import 'network_result.dart';
 
 extension NetworkResultExtensions<U> on NetworkResult<U> {
-  DataResponse<T> toDataResponse<T>(T Function(U) mapper) {
+  DataResponse<T> toDataResponse<T>([T Function(U)? mapper]) {
     return switch (this) {
-      SuccessResult<U>() => DataResponse(
-          data: mapper((this as SuccessResult<U>).data),
+      SuccessResult<U>() => SuccessfulDataResponse<T>(
+          data: mapper?.call((this as SuccessResult<U>).data) ??
+              (this as SuccessResult<U>).data as T,
         ),
-      ErrorResult<U>() => DataResponse(
+      ErrorResult<U>() => FailureDataResponse<T>(
           error: (this as ErrorResult<U>).exception.toRequestError(),
         ),
     };

@@ -62,6 +62,7 @@ dart run flutter_native_splash:create --flavors dev,prod
 First activate it globally:
 ```
 dart pub global activate mason
+dart pub global activate mason_cli
 ```
 
 If you want to add new bricks, use:
