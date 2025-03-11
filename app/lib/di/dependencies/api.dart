@@ -1,14 +1,14 @@
 import 'dart:developer';
 
 import 'package:data/source/api/api_requests.dart';
-import 'package:data/source/api/cocktails/cocktails_api_client.dart';
 import 'package:data/source/api/interceptors/auth_interceptor.dart';
 import 'package:data/source/api/interceptors/error_interceptor.dart';
 import 'package:data/source/api/interceptors/refresh_token_interceptor.dart';
+import 'package:data/source/api/interceptors/unauthorized_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 
-import '../../env/environment_reader.dart';
+import '../../config/remote_config.dart';
 import '../locator.dart';
 
 void api() {
@@ -21,7 +21,7 @@ void api() {
           receiveTimeout: const Duration(seconds: 30),
           sendTimeout: const Duration(seconds: 30),
           connectTimeout: const Duration(seconds: 30),
-          baseUrl: locator<EnvironmentReader>().baseUrl,
+          baseUrl: locator<RemoteConfig>().baseUrl,
         ),
       ),
     )
@@ -40,6 +40,11 @@ void api() {
             ),
           )
           ..interceptors.add(
+            UnauthorizedInterceptor(
+              auth: locator(),
+            ),
+          )
+          ..interceptors.add(
             RetryInterceptor(
               dio: locator(),
               logPrint: log,
@@ -48,13 +53,6 @@ void api() {
           ..interceptors.add(
             ErrorInterceptor(),
           ),
-      ),
-    )
-
-    //Clients
-    ..registerLazySingleton(
-      () => CocktailsApiClient(
-        requests: locator(),
       ),
     );
 }

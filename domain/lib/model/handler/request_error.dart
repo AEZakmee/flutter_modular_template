@@ -1,9 +1,12 @@
-sealed class RequestError {}
+sealed class RequestError {
+  RequestError({this.message});
+  String? message;
+}
 
 class ConnectionError extends RequestError {}
 
-class GenericError extends RequestError {
-  GenericError({this.message});
+class UnauthorizedError extends RequestError {}
 
-  String? message;
+class GenericError extends RequestError {
+  GenericError({super.message});
 }

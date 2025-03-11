@@ -1,7 +1,4 @@
-import 'package:domain/model/remote_config/feature_favorite.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-
-import 'constants.dart';
 
 class RemoteConfig {
   RemoteConfig({
@@ -10,10 +7,5 @@ class RemoteConfig {
 
   final FirebaseRemoteConfig _firebaseRemoteConfig;
 
-  DetailsFeature get detailsFeature {
-    final typeId = _firebaseRemoteConfig.getInt(
-      RemoteConfigConsts.detailsFeature,
-    );
-    return DetailsFeature.getType(typeId);
-  }
+  String get baseUrl => _firebaseRemoteConfig.getString('baseUrl');
 }

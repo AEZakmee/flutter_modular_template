@@ -15,10 +15,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void showFeatureDisabled() => SnackBarHelper(context).showErrorSnackBar(
-          context.localizations.featureDisabled,
-        );
-
     return ViewModelBuilder<HomeViewModel>(
       viewModelBuilder: locator,
       builder: (context, viewModel) => Scaffold(
@@ -26,7 +22,10 @@ class HomeScreen extends StatelessWidget {
           viewModel: viewModel,
           onEvent: (event) {
             event.when(
-              showFeatureDisabled: showFeatureDisabled,
+              showSomethingWentWrong: () =>
+                  SnackBarHelper(context).showErrorSnackBar(
+                context.localizations.genericError,
+              ),
             );
           },
           child: HomeBody(

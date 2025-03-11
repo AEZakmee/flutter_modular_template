@@ -1,5 +1,5 @@
 import 'package:domain/services/auth.dart';
-import 'package:domain/services/cocktails_service.dart';
+import 'package:domain/services/cache_service.dart';
 import 'package:domain/services/localization_service.dart';
 import 'package:domain/services/theme_service.dart';
 
@@ -10,23 +10,23 @@ void service() {
 
     ///Services
     ..registerLazySingleton(
-      () => Auth(
-        firebaseAuth: locator(),
+      () => CacheService(
+        settingsRepository: locator(),
       ),
+    )
+    ..registerLazySingleton(
+      Auth.new,
     )
     ..registerLazySingleton(
       () => ThemeService(
         settingsRepository: locator(),
+        cacheService: locator(),
       ),
     )
     ..registerLazySingleton(
       () => LocalizationService(
         settingsRepository: locator(),
-      ),
-    )
-    ..registerLazySingleton(
-      () => CocktailsService(
-        cocktailsRepository: locator(),
+        cacheService: locator(),
       ),
     );
 }

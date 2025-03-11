@@ -3,9 +3,10 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
-import '../exceptions/bad_request_exception.dart';
+import '../exceptions/backend_exception.dart';
 import '../exceptions/connection_exception.dart';
 import '../exceptions/other_exception.dart';
+import '../exceptions/unauthorized_exception.dart';
 
 class ErrorInterceptor extends Interceptor {
   @override
@@ -23,9 +24,16 @@ class ErrorInterceptor extends Interceptor {
     }
 
     log('Dio error: ${err.response?.statusCode}');
+
     return handler.next(
       switch (err.response?.statusCode) {
-        400 => BadRequestException(
+        null => OtherException(
+            error: err,
+          ),
+        401 => UnauthorizedException(
+            error: err,
+          ),
+        >= 400 && <= 500 => BackendException(
             error: err,
           ),
         _ => OtherException(

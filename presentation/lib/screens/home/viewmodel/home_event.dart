@@ -4,5 +4,5 @@ part 'home_event.freezed.dart';
 
 @freezed
 class HomeEvent with _$HomeEvent {
-  const factory HomeEvent.showFeatureDisabled() = _ShowFeatureDisabled;
+  const factory HomeEvent.showSomethingWentWrong() = _ShowSomethingWentWrong;
 }

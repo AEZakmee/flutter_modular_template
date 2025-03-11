@@ -36,14 +36,12 @@ class AppTheme {
       Brightness.light => const ColorScheme.light().copyWith(
           secondary: _colors.secondaryColor,
           primary: _colors.primaryColor,
-          background: _colors.surfaceColor,
           error: _colors.errorColor,
           brightness: Brightness.light,
         ),
       Brightness.dark => const ColorScheme.dark().copyWith(
           secondary: _colors.secondaryColor,
           primary: _colors.primaryColor,
-          background: _colors.surfaceColor,
           error: _colors.errorColor,
           brightness: Brightness.dark,
         ),

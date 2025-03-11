@@ -13,17 +13,18 @@ class ThemeController {
 
   final ThemeService _themeService;
 
-  Stream<Brightness> observeBrightness() =>
-      _themeService.observeThemeType().map(
-            (themeType) => themeType?.toBrightness() ?? _deviceBrightness,
-          );
-
-  Future<void> switchBrightness() => _themeService.switchTheme(
-        currentTheme: _themeType,
+  Stream<Brightness> observeBrightness() => _themeService.manager.stream().map(
+        (themeType) => themeType?.toBrightness() ?? _deviceBrightness,
       );
 
-  ThemeType get _themeType =>
-      _themeService.getThemeType() ?? _deviceBrightness.toThemeType();
+  Future<void> switchBrightness() async => _themeService.switchTheme(
+        currentTheme: await _themeType(),
+      );
+
+  Future<ThemeType> _themeType() async {
+    final savedTheme = await _themeService.manager.fetch();
+    return savedTheme ?? _deviceBrightness.toThemeType();
+  }
 
   Brightness get _deviceBrightness =>
       WidgetsBinding.instance.platformDispatcher.platformBrightness;

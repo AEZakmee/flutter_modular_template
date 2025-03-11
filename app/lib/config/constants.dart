@@ -1,3 +1,1 @@
-class RemoteConfigConsts {
-  static const String detailsFeature = 'detailsFeature';
-}
+class RemoteConfigConsts {}

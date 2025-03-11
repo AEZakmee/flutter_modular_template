@@ -1,25 +1,14 @@
 import 'package:domain/model/settings/theme_type.dart';
 
-import '../../../cache/model/settings/theme_type_cache.dart';
-
-extension ThemeTypeCacheExtensions on ThemeTypeCache {
-  ThemeType toDomain() {
+extension ThemeTypeCacheExtensions on String? {
+  ThemeType? toThemeType() {
     switch (this) {
-      case ThemeTypeCache.light:
+      case 'light':
         return ThemeType.light;
-      case ThemeTypeCache.dark:
+      case 'dark':
         return ThemeType.dark;
-    }
-  }
-}
-
-extension ThemeTypeExtensions on ThemeType {
-  ThemeTypeCache toCache() {
-    switch (this) {
-      case ThemeType.light:
-        return ThemeTypeCache.light;
-      case ThemeType.dark:
-        return ThemeTypeCache.dark;
+      default:
+        return null;
     }
   }
 }

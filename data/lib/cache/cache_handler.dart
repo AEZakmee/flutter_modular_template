@@ -2,10 +2,10 @@ import 'package:hive/hive.dart';
 
 class CacheHandler {
   CacheHandler({
-    required List<Box> boxes,
+    required List<CollectionBox> boxes,
   }) : _boxes = boxes;
 
-  final List<Box> _boxes;
+  final List<CollectionBox> _boxes;
 
   Future<void> clearCache() async {
     for (final box in _boxes) {
