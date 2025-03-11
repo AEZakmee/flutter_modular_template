@@ -55,6 +55,7 @@ IOS -> Open the ios project in xcode, in Runner/Assets update the icon assets (1
 ## Splash screen
 In the flutter app folder update the flutter_native_splash yaml files. Then generate for the flavors
 ```
+dart run flutter_native_splash:create --path=flutter_native_splash-web.yaml (For web)
 dart run flutter_native_splash:create --flavors dev,prod
 ```
 
