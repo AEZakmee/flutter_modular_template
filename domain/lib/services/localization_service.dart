@@ -1,21 +1,24 @@
-import 'dart:io';
-
 import '../repositories/settings_repository.dart';
+import '../utils/stream_manager.dart';
+import 'cache_service.dart';
 
 class LocalizationService {
   LocalizationService({
     required SettingsRepository settingsRepository,
-  }) : _settingsRepository = settingsRepository;
+    required CacheService cacheService,
+  }) : _settingsRepository = settingsRepository {
+    manager = StreamManager<String>(
+      fetchFunction: settingsRepository.getLocaleCode,
+    );
+    cacheService.addManager(manager);
+  }
 
   final SettingsRepository _settingsRepository;
 
-  Future<void> saveLocaleCode(String code) =>
-      _settingsRepository.updateLocaleCode(code);
+  late final StreamManager<String?> manager;
 
-  Stream<String?> observeLocaleCode() {
-    final String deviceLocaleCode = Platform.localeName.split('_')[0];
-    return _settingsRepository.observeLocaleCode().map(
-          (event) => event ?? deviceLocaleCode,
-        );
+  Future<void> saveLocaleCode(String code) async {
+    await _settingsRepository.updateLocaleCode(code);
+    await manager.refetch();
   }
 }

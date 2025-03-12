@@ -4,11 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:domain/services/auth.dart';
 
 class RefreshTokenInterceptor extends Interceptor {
-  RefreshTokenInterceptor({
-    required Auth auth,
-    required Dio dio,
-  })  : _auth = auth,
-        _dio = dio;
+  RefreshTokenInterceptor({required Auth auth, required Dio dio})
+    : _auth = auth,
+      _dio = dio;
 
   //Auth should have client with different Dio impl. Otherwise stack overflow
   final Auth _auth;

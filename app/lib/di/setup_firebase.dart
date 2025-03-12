@@ -1,10 +1,8 @@
-import 'package:domain/model/remote_config/feature_favorite.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/foundation.dart';
 
-import '../config/constants.dart';
 import '../config/remote_config.dart';
 import '../firebase_options.dart';
 import 'locator.dart';
@@ -17,35 +15,18 @@ Future<void> setupFirebase() async {
   locator
     ..registerLazySingleton(() => app)
     ..registerLazySingleton(
-      () => FirebaseRemoteConfig.instanceFor(
-        app: locator(),
-      ),
+      () => FirebaseRemoteConfig.instanceFor(app: locator()),
     )
+    ..registerLazySingleton(() => FirebaseAnalytics.instanceFor(app: locator()))
     ..registerLazySingleton(
-      () => FirebaseAuth.instanceFor(
-        app: locator(),
-      ),
-    )
-    ..registerLazySingleton(
-      () => FirebaseAnalytics.instanceFor(
-        app: locator(),
-      ),
-    )
-    ..registerLazySingleton(
-      () => RemoteConfig(
-        firebaseRemoteConfig: locator(),
-      ),
+      () => RemoteConfig(firebaseRemoteConfig: locator()),
     );
 
   await locator<FirebaseRemoteConfig>().setConfigSettings(
     RemoteConfigSettings(
       fetchTimeout: const Duration(minutes: 1),
-      //Show be at least 6 hours. For testing is 1 minute
-      minimumFetchInterval: const Duration(minutes: 1),
+      minimumFetchInterval: const Duration(minutes: kDebugMode ? 1 : 60),
     ),
   );
-  await locator<FirebaseRemoteConfig>().setDefaults({
-    RemoteConfigConsts.detailsFeature: DetailsFeature.disabled.id,
-  });
   await locator<FirebaseRemoteConfig>().fetchAndActivate();
 }

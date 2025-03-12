@@ -1,10 +1,8 @@
 import 'package:dio/dio.dart';
 
 class ConnectionException extends DioException {
-  ConnectionException({
-    required DioException super.error,
-    this.errorMessage,
-  }) : super(requestOptions: error.requestOptions);
+  ConnectionException({required DioException super.error, this.errorMessage})
+    : super(requestOptions: error.requestOptions);
 
   String? errorMessage;
 

@@ -4,9 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:domain/services/auth.dart';
 
 class AuthInterceptor extends Interceptor {
-  AuthInterceptor({
-    required Auth auth,
-  }) : _auth = auth;
+  AuthInterceptor({required Auth auth}) : _auth = auth;
 
   final Auth _auth;
 

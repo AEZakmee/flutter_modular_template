@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class StaggeredListView extends StatelessWidget {
-  const StaggeredListView({
-    required this.children,
-    super.key,
-  });
+  const StaggeredListView({required this.children, super.key});
 
   final List<Widget> children;
   @override
@@ -14,12 +11,11 @@ class StaggeredListView extends StatelessWidget {
       child: ListView(
         children: AnimationConfiguration.toStaggeredList(
           duration: const Duration(milliseconds: 375),
-          childAnimationBuilder: (widget) => SlideAnimation(
-            horizontalOffset: 50.0,
-            child: FadeInAnimation(
-              child: widget,
-            ),
-          ),
+          childAnimationBuilder:
+              (widget) => SlideAnimation(
+                horizontalOffset: 50.0,
+                child: FadeInAnimation(child: widget),
+              ),
           children: children,
         ),
       ),
@@ -41,31 +37,21 @@ class StaggeredGridView extends StatelessWidget {
     return AnimationLimiter(
       child: GridView.count(
         crossAxisCount: 2,
-        children: List.generate(
-          count,
-          (int index) {
-            return AnimationConfiguration.staggeredGrid(
-              position: index,
-              duration: const Duration(milliseconds: 375),
-              columnCount: count ~/ 2,
-              child: ScaleAnimation(
-                child: FadeInAnimation(
-                  child: child(index),
-                ),
-              ),
-            );
-          },
-        ),
+        children: List.generate(count, (int index) {
+          return AnimationConfiguration.staggeredGrid(
+            position: index,
+            duration: const Duration(milliseconds: 375),
+            columnCount: count ~/ 2,
+            child: ScaleAnimation(child: FadeInAnimation(child: child(index))),
+          );
+        }),
       ),
     );
   }
 }
 
 class StaggeredColumn extends StatelessWidget {
-  const StaggeredColumn({
-    required this.children,
-    super.key,
-  });
+  const StaggeredColumn({required this.children, super.key});
 
   final List<Widget> children;
   @override
@@ -74,12 +60,11 @@ class StaggeredColumn extends StatelessWidget {
       child: Column(
         children: AnimationConfiguration.toStaggeredList(
           duration: const Duration(milliseconds: 375),
-          childAnimationBuilder: (widget) => SlideAnimation(
-            horizontalOffset: 50.0,
-            child: FadeInAnimation(
-              child: widget,
-            ),
-          ),
+          childAnimationBuilder:
+              (widget) => SlideAnimation(
+                horizontalOffset: 50.0,
+                child: FadeInAnimation(child: widget),
+              ),
           children: children,
         ),
       ),
@@ -88,10 +73,7 @@ class StaggeredColumn extends StatelessWidget {
 }
 
 class StaggeredRow extends StatelessWidget {
-  const StaggeredRow({
-    required this.children,
-    super.key,
-  });
+  const StaggeredRow({required this.children, super.key});
 
   final List<Widget> children;
   @override
@@ -100,11 +82,8 @@ class StaggeredRow extends StatelessWidget {
       child: Row(
         children: AnimationConfiguration.toStaggeredList(
           duration: const Duration(milliseconds: 375),
-          childAnimationBuilder: (widget) => ScaleAnimation(
-            child: FadeInAnimation(
-              child: widget,
-            ),
-          ),
+          childAnimationBuilder:
+              (widget) => ScaleAnimation(child: FadeInAnimation(child: widget)),
           children: children,
         ),
       ),

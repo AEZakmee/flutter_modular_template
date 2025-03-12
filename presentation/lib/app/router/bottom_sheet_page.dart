@@ -7,8 +7,8 @@ class ModalPage<T> extends Page<T> {
 
   @override
   Route<T> createRoute(BuildContext context) => ModalBottomSheetRoute<T>(
-        settings: this,
-        builder: (context) => child,
-        isScrollControlled: true,
-      );
+    settings: this,
+    builder: (context) => child,
+    isScrollControlled: true,
+  );
 }

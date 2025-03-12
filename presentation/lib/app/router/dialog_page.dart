@@ -7,9 +7,10 @@ class DialogPage<T> extends Page<T> {
 
   @override
   Route<T> createRoute(BuildContext context) => DialogRoute<T>(
-        context: context,
-        settings: this,
-        builder: (context) => Dialog(
+    context: context,
+    settings: this,
+    builder:
+        (context) => Dialog(
           insetPadding: const EdgeInsets.symmetric(
             vertical: 68,
             horizontal: 24,
@@ -19,5 +20,5 @@ class DialogPage<T> extends Page<T> {
             child: child,
           ),
         ),
-      );
+  );
 }

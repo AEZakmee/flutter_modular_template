@@ -1,28 +1,31 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
 
 class Auth {
-  Auth({
-    required FirebaseAuth firebaseAuth,
-  }) : _firebaseAuth = firebaseAuth;
+  String? token;
+  final _controller = StreamController<String?>.broadcast();
 
-  final FirebaseAuth _firebaseAuth;
+  bool get isAuthenticated => token != null;
 
-  bool get isAuthenticated => _firebaseAuth.currentUser != null;
+  void _updateToken(String? newToken) {
+    token = newToken;
+    _controller.add(newToken);
+  }
 
   Future<String> accessToken() async {
-    final token = await _firebaseAuth.currentUser!.getIdToken();
     return token ?? '';
   }
 
-  Stream<bool> observeAuthenticated() => _firebaseAuth.userChanges().map(
-        (user) => user != null,
-      );
+  Stream<bool> observeAuthenticated() =>
+      _controller.stream.map((token) => token != null);
 
   Future<bool> signIn() async {
-    //This is only to mock login
-    await _firebaseAuth.signInAnonymously();
+    _updateToken('token');
     return true;
   }
 
-  Future<void> signOut() => _firebaseAuth.signOut();
+  Future<void> signOut() async => _updateToken(null);
+
+  void dispose() {
+    _controller.close();
+  }
 }

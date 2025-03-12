@@ -4,8 +4,7 @@ publish_to: 'none'
 version: 0.0.1
 
 environment:
-  sdk: '>=3.1.5 <4.0.0'
-  flutter: ">=1.17.0"
+  sdk: ^3.7.0
 
 dependencies:
   flutter:
@@ -16,16 +15,16 @@ dependencies:
   utils:
     path: ../libs/utils
 
-  dio: ^5.4.0
-  dio_smart_retry: ^6.0.0
+  dio: ^5.8.0
+  dio_smart_retry: ^7.0.1
 
   json_annotation: ^4.8.1
 
-  collection: ^1.18.0
+  collection: ^1.19.1
 
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  flutter_secure_storage: ^9.0.0
+  flutter_secure_storage: ^9.2.4
 
 dev_dependencies:
   flutter_test:

@@ -7,40 +7,28 @@ final class SnackBarHelper {
 
   final BuildContext context;
 
-  void showSuccessSnackBar(
-    String message,
-  ) {
+  void showSuccessSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          message,
-        ),
+        content: Text(message),
         backgroundColor: context.colors.secondaryColor,
       ),
     );
   }
 
-  void showErrorSnackBar(
-    String message,
-  ) {
+  void showErrorSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          message,
-        ),
+        content: Text(message),
         backgroundColor: context.colors.errorColor,
       ),
     );
   }
 
-  void showInfoSnackBar(
-    String message,
-  ) {
+  void showInfoSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          message,
-        ),
+        content: Text(message),
         backgroundColor: context.colors.primaryColor,
       ),
     );

@@ -1,33 +1,18 @@
 import 'package:hive/hive.dart';
 
 abstract class GenericCacheClient<T> {
-  GenericCacheClient({
-    required Box<dynamic> box,
-  }) : _box = box;
+  GenericCacheClient({required CollectionBox<dynamic> box}) : _box = box;
 
-  final Box<dynamic> _box;
+  final CollectionBox<dynamic> _box;
   abstract String key;
 
-  T? get() => _box.get(key) as T?;
+  Future<T?> get() => _box.get(key).then((value) => value as T?);
 
-  Future<void> put({
-    required T data,
-  }) async {
+  Future<void> put({required T data}) async {
     await _box.put(key, data);
   }
 
   Future<void> delete() async {
-    if (_box.containsKey(key)) {
-      await _box.delete(key);
-    }
-  }
-
-  Stream<T?> observe() async* {
-    yield _box.get(key);
-    yield* _box.watch(key: key).map(
-      (event) {
-        return event.value as T?;
-      },
-    );
+    await _box.delete(key);
   }
 }

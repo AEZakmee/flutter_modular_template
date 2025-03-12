@@ -4,8 +4,7 @@ version: 0.0.1
 publish_to: 'none'
 
 environment:
-  sdk: '>=3.1.5 <4.0.0'
-  flutter: ">=1.17.0"
+  sdk: ^3.7.0
 
 dependencies:
   flutter:
@@ -20,18 +19,18 @@ dependencies:
   utils:
     path: ../libs/utils
 
-  cupertino_icons: ^1.0.6
-  provider: ^6.1.1
+  cupertino_icons: ^1.0.8
+  provider: ^6.1.2
 
-  go_router: ^13.2.1
+  go_router: ^14.8.1
 
   flutter_staggered_animations: ^1.1.1
 
-  collection: ^1.18.0
+  collection: ^1.19.1
 
   freezed_annotation: ^2.4.1
 
-  get_it: ^7.6.4
+  get_it: ^8.0.3
 
 dev_dependencies:
   flutter_test:
