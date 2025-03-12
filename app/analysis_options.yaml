@@ -1,5 +1,8 @@
 include: package:flutter_lints/flutter.yaml
 
+formatter:
+  page_width: 120
+
 linter:
   rules:
     prefer_single_quotes: true
@@ -57,7 +60,6 @@ linter:
     use_is_even_rather_than_modulo: true
     use_named_constants: true
     use_to_and_as_if_applicable: true
-    require_trailing_commas: true
     use_enums: true
     use_full_hex_values_for_flutter_colors: true
     use_rethrow_when_possible: true
