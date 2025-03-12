@@ -1,9 +1,7 @@
 import 'package:hive/hive.dart';
 
 class CacheHandler {
-  CacheHandler({
-    required List<CollectionBox> boxes,
-  }) : _boxes = boxes;
+  CacheHandler({required List<CollectionBox> boxes}) : _boxes = boxes;
 
   final List<CollectionBox> _boxes;
 

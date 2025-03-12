@@ -34,9 +34,9 @@ class _ViewModelBuilderState<T extends BaseViewModel>
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider<T>(
-        lazy: widget.lazy,
-        create: (context) => _viewModel,
-        builder: (context, _) => widget.builder(context, _viewModel),
-        child: widget.child,
-      );
+    lazy: widget.lazy,
+    create: (context) => _viewModel,
+    builder: (context, _) => widget.builder(context, _viewModel),
+    child: widget.child,
+  );
 }

@@ -3,10 +3,7 @@ import 'dart:async';
 import 'base_stream_manager.dart';
 
 class StreamManager<T> implements BaseStreamManager {
-  StreamManager({
-    required this.fetchFunction,
-    this.hotObservable = true,
-  });
+  StreamManager({required this.fetchFunction, this.hotObservable = true});
 
   final Future<T?> Function() fetchFunction;
   final bool hotObservable;

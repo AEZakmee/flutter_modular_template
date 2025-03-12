@@ -9,21 +9,17 @@ import 'auth_state.dart';
 
 final class AuthViewModel
     extends StateViewModel<AuthState, AuthAction, AuthEvent> {
-  AuthViewModel({
-    required Auth auth,
-    required GoRouter router,
-  })  : _auth = auth,
-        _router = router,
-        super(initialState: const AuthState());
+  AuthViewModel({required Auth auth, required GoRouter router})
+    : _auth = auth,
+      _router = router,
+      super(initialState: const AuthState());
 
   final Auth _auth;
   final GoRouter _router;
 
   @override
   Future<void> submitAction(AuthAction action) async {
-    await action.when(
-      logIn: _logIn,
-    );
+    await action.when(logIn: _logIn);
   }
 
   Future<void> _logIn() async {

@@ -11,22 +11,23 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) => AppBar(
-        leading: IconButton(
-          onPressed: () => DialogHelper(context).showConfirmationDialog(
+    leading: IconButton(
+      onPressed:
+          () => DialogHelper(context).showConfirmationDialog(
             title: context.localizations.logout,
             message: context.localizations.areYouSureLogout,
             buttonText: context.localizations.confirm,
             onConfirm: () => submitAction(const HomeAction.logOut()),
           ),
-          icon: const Icon(Icons.logout),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () => submitAction(const HomeAction.switchTheme()),
-            icon: const Icon(Icons.dark_mode),
-          )
-        ],
-      );
+      icon: const Icon(Icons.logout),
+    ),
+    actions: [
+      IconButton(
+        onPressed: () => submitAction(const HomeAction.switchTheme()),
+        icon: const Icon(Icons.dark_mode),
+      ),
+    ],
+  );
 
   @override
   Size get preferredSize => AppBar().preferredSize;

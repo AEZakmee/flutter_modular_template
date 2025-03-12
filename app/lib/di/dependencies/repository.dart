@@ -6,7 +6,6 @@ import '../locator.dart';
 
 void repository() {
   locator
-
     ///Repository
     ..registerLazySingleton(RequestHandler.new)
     ..registerLazySingleton<SettingsRepository>(

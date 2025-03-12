@@ -11,22 +11,22 @@ class AppColors extends ThemeExtension<AppColors> {
   });
 
   factory AppColors.light() => AppColors(
-        primaryColor: Colors.blue,
-        secondaryColor: Colors.green,
-        errorColor: Colors.red,
-        surfaceColor: Colors.white,
-        borderColor: Colors.grey,
-        textColor: Colors.black,
-      );
+    primaryColor: Colors.blue,
+    secondaryColor: Colors.green,
+    errorColor: Colors.red,
+    surfaceColor: Colors.white,
+    borderColor: Colors.grey,
+    textColor: Colors.black,
+  );
 
   factory AppColors.dark() => AppColors(
-        primaryColor: Colors.lightBlue,
-        secondaryColor: Colors.lightGreen,
-        errorColor: Colors.redAccent,
-        surfaceColor: Colors.black,
-        borderColor: Colors.black12,
-        textColor: Colors.white,
-      );
+    primaryColor: Colors.lightBlue,
+    secondaryColor: Colors.lightGreen,
+    errorColor: Colors.redAccent,
+    surfaceColor: Colors.black,
+    borderColor: Colors.black12,
+    textColor: Colors.white,
+  );
 
   final Color? primaryColor;
   final Color? secondaryColor;
@@ -46,15 +46,14 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? surfaceColor,
     Color? borderColor,
     Color? textColor,
-  }) =>
-      AppColors(
-        primaryColor: primaryColor ?? this.primaryColor,
-        secondaryColor: secondaryColor ?? this.secondaryColor,
-        errorColor: errorColor ?? this.errorColor,
-        surfaceColor: surfaceColor ?? this.surfaceColor,
-        borderColor: borderColor ?? this.borderColor,
-        textColor: textColor ?? this.textColor,
-      );
+  }) => AppColors(
+    primaryColor: primaryColor ?? this.primaryColor,
+    secondaryColor: secondaryColor ?? this.secondaryColor,
+    errorColor: errorColor ?? this.errorColor,
+    surfaceColor: surfaceColor ?? this.surfaceColor,
+    borderColor: borderColor ?? this.borderColor,
+    textColor: textColor ?? this.textColor,
+  );
 
   @override
   ThemeExtension<AppColors> lerp(ThemeExtension<AppColors>? other, double t) {

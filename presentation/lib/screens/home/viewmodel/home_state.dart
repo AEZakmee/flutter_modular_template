@@ -4,7 +4,5 @@ part 'home_state.freezed.dart';
 
 @freezed
 class HomeState with _$HomeState {
-  const factory HomeState({
-    required bool somethingWentWrong,
-  }) = _HomeState;
+  const factory HomeState({required bool somethingWentWrong}) = _HomeState;
 }

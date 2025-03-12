@@ -13,7 +13,6 @@ import '../locator.dart';
 
 void api() {
   locator
-
     ///Api
     ..registerLazySingleton(
       () => Dio(
@@ -27,32 +26,17 @@ void api() {
     )
     ..registerLazySingleton(
       () => ApiRequests(
-        dio: locator()
-          ..interceptors.add(
-            AuthInterceptor(
-              auth: locator(),
-            ),
-          )
-          ..interceptors.add(
-            RefreshTokenInterceptor(
-              auth: locator(),
-              dio: locator(),
-            ),
-          )
-          ..interceptors.add(
-            UnauthorizedInterceptor(
-              auth: locator(),
-            ),
-          )
-          ..interceptors.add(
-            RetryInterceptor(
-              dio: locator(),
-              logPrint: log,
-            ),
-          )
-          ..interceptors.add(
-            ErrorInterceptor(),
-          ),
+        dio:
+            locator()
+              ..interceptors.add(AuthInterceptor(auth: locator()))
+              ..interceptors.add(
+                RefreshTokenInterceptor(auth: locator(), dio: locator()),
+              )
+              ..interceptors.add(UnauthorizedInterceptor(auth: locator()))
+              ..interceptors.add(
+                RetryInterceptor(dio: locator(), logPrint: log),
+              )
+              ..interceptors.add(ErrorInterceptor()),
       ),
     );
 }

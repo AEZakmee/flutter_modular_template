@@ -6,19 +6,11 @@ import '../../config/hive_boxes.dart';
 Future<void> setupHive() async {
   await Hive.initFlutter();
 
-  final collection = await BoxCollection.open(
-    'AppDB',
-    {HiveBoxes.generic},
-  );
+  final collection = await BoxCollection.open('AppDB', {HiveBoxes.generic});
 
-  final genericBox = await collection.openBox(
-    HiveBoxes.generic,
-  );
+  final genericBox = await collection.openBox(HiveBoxes.generic);
 
   locator
     ..registerLazySingleton(() => collection)
-    ..registerLazySingleton(
-      () => genericBox,
-      instanceName: HiveBoxes.generic,
-    );
+    ..registerLazySingleton(() => genericBox, instanceName: HiveBoxes.generic);
 }

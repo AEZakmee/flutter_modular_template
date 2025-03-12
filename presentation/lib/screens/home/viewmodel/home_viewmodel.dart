@@ -8,16 +8,10 @@ import 'home_state.dart';
 
 final class HomeViewModel
     extends StateViewModel<HomeState, HomeAction, HomeEvent> {
-  HomeViewModel({
-    required ThemeController themeController,
-    required Auth auth,
-  })  : _themeController = themeController,
-        _auth = auth,
-        super(
-          initialState: const HomeState(
-            somethingWentWrong: false,
-          ),
-        );
+  HomeViewModel({required ThemeController themeController, required Auth auth})
+    : _themeController = themeController,
+      _auth = auth,
+      super(initialState: const HomeState(somethingWentWrong: false));
 
   final ThemeController _themeController;
   final Auth _auth;

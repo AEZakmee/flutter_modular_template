@@ -15,9 +15,8 @@ class Auth {
     return token ?? '';
   }
 
-  Stream<bool> observeAuthenticated() => _controller.stream.map(
-        (token) => token != null,
-      );
+  Stream<bool> observeAuthenticated() =>
+      _controller.stream.map((token) => token != null);
 
   Future<bool> signIn() async {
     _updateToken('token');

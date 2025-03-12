@@ -2,9 +2,8 @@ import '../repositories/settings_repository.dart';
 import '../utils/base_stream_manager.dart';
 
 class CacheService {
-  CacheService({
-    required SettingsRepository settingsRepository,
-  }) : _settingsRepository = settingsRepository {
+  CacheService({required SettingsRepository settingsRepository})
+    : _settingsRepository = settingsRepository {
     managers = [];
   }
 

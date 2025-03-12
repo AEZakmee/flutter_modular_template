@@ -10,20 +10,12 @@ void cache() {
   locator
     ..registerLazySingleton(FlutterSecureStorage.new)
     ..registerLazySingleton(
-      () => ThemeTypeCacheClient(
-        box: locator(instanceName: HiveBoxes.generic),
-      ),
+      () => ThemeTypeCacheClient(box: locator(instanceName: HiveBoxes.generic)),
     )
     ..registerLazySingleton(
-      () => LocaleCacheClient(
-        box: locator(instanceName: HiveBoxes.generic),
-      ),
+      () => LocaleCacheClient(box: locator(instanceName: HiveBoxes.generic)),
     )
     ..registerLazySingleton(
-      () => CacheHandler(
-        boxes: [
-          locator(instanceName: HiveBoxes.generic),
-        ],
-      ),
+      () => CacheHandler(boxes: [locator(instanceName: HiveBoxes.generic)]),
     );
 }

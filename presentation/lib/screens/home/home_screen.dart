@@ -17,25 +17,22 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>(
       viewModelBuilder: locator,
-      builder: (context, viewModel) => Scaffold(
-        body: ViewModelEventHandler<HomeEvent>(
-          viewModel: viewModel,
-          onEvent: (event) {
-            event.when(
-              showSomethingWentWrong: () =>
-                  SnackBarHelper(context).showErrorSnackBar(
-                context.localizations.genericError,
-              ),
-            );
-          },
-          child: HomeBody(
-            submitAction: viewModel.submitAction,
+      builder:
+          (context, viewModel) => Scaffold(
+            body: ViewModelEventHandler<HomeEvent>(
+              viewModel: viewModel,
+              onEvent: (event) {
+                event.when(
+                  showSomethingWentWrong:
+                      () => SnackBarHelper(
+                        context,
+                      ).showErrorSnackBar(context.localizations.genericError),
+                );
+              },
+              child: HomeBody(submitAction: viewModel.submitAction),
+            ),
+            appBar: MainAppBar(submitAction: viewModel.submitAction),
           ),
-        ),
-        appBar: MainAppBar(
-          submitAction: viewModel.submitAction,
-        ),
-      ),
     );
   }
 }

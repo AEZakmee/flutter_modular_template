@@ -14,25 +14,22 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void showError() => SnackBarHelper(context).showErrorSnackBar(
-          context.localizations.genericError,
-        );
+    void showError() => SnackBarHelper(
+      context,
+    ).showErrorSnackBar(context.localizations.genericError);
 
     return ViewModelBuilder<AuthViewModel>(
       viewModelBuilder: locator,
-      builder: (context, viewModel) => Scaffold(
-        body: ViewModelEventHandler<AuthEvent>(
-          viewModel: viewModel,
-          onEvent: (event) {
-            event.when(
-              showError: showError,
-            );
-          },
-          child: AuthBody(
-            submitAction: viewModel.submitAction,
+      builder:
+          (context, viewModel) => Scaffold(
+            body: ViewModelEventHandler<AuthEvent>(
+              viewModel: viewModel,
+              onEvent: (event) {
+                event.when(showError: showError);
+              },
+              child: AuthBody(submitAction: viewModel.submitAction),
+            ),
           ),
-        ),
-      ),
     );
   }
 }

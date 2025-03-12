@@ -10,9 +10,7 @@ import 'di/locator.dart';
 import 'main_viewmodel.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({
-    super.key,
-  });
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +18,7 @@ class MyApp extends StatelessWidget {
       viewModelBuilder: locator,
       builder: (context, child) {
         final viewModel = context.watch<MainViewModel>();
-        final appTheme = AppTheme(
-          brightness: viewModel.brightness,
-        );
+        final appTheme = AppTheme(brightness: viewModel.brightness);
 
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,

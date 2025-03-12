@@ -13,10 +13,10 @@ class SettingsRepositoryImpl implements SettingsRepository {
     required ThemeTypeCacheClient themeTypeCacheClient,
     required RequestHandler requestHandler,
     required CacheHandler cacheHandler,
-  })  : _localeCacheClient = localeCacheClient,
-        _themeTypeCacheClient = themeTypeCacheClient,
-        _requestHandler = requestHandler,
-        _cacheHandler = cacheHandler;
+  }) : _localeCacheClient = localeCacheClient,
+       _themeTypeCacheClient = themeTypeCacheClient,
+       _requestHandler = requestHandler,
+       _cacheHandler = cacheHandler;
 
   final LocaleCacheClient _localeCacheClient;
   final ThemeTypeCacheClient _themeTypeCacheClient;
@@ -29,9 +29,8 @@ class SettingsRepositoryImpl implements SettingsRepository {
   }
 
   @override
-  Future<ThemeType?> getThemeType() => _themeTypeCacheClient.get().then(
-        (value) => value.toThemeType(),
-      );
+  Future<ThemeType?> getThemeType() =>
+      _themeTypeCacheClient.get().then((value) => value.toThemeType());
 
   @override
   Future<void> updateLocaleCode(String code) async {

@@ -10,12 +10,13 @@ extension NetworkResultExtensions<U> on NetworkResult<U> {
   DataResponse<T> toDataResponse<T>([T Function(U)? mapper]) {
     return switch (this) {
       SuccessResult<U>() => SuccessfulDataResponse<T>(
-          data: mapper?.call((this as SuccessResult<U>).data) ??
-              (this as SuccessResult<U>).data as T,
-        ),
+        data:
+            mapper?.call((this as SuccessResult<U>).data) ??
+            (this as SuccessResult<U>).data as T,
+      ),
       ErrorResult<U>() => FailureDataResponse<T>(
-          error: (this as ErrorResult<U>).exception.toRequestError(),
-        ),
+        error: (this as ErrorResult<U>).exception.toRequestError(),
+      ),
     };
   }
 
@@ -24,12 +25,13 @@ extension NetworkResultExtensions<U> on NetworkResult<U> {
   ]) async {
     return switch (this) {
       SuccessResult<U>() => SuccessfulDataResponse<T>(
-          data: await mapper?.call((this as SuccessResult<U>).data) ??
-              (this as SuccessResult<U>).data as T,
-        ),
+        data:
+            await mapper?.call((this as SuccessResult<U>).data) ??
+            (this as SuccessResult<U>).data as T,
+      ),
       ErrorResult<U>() => FailureDataResponse<T>(
-          error: (this as ErrorResult<U>).exception.toRequestError(),
-        ),
+        error: (this as ErrorResult<U>).exception.toRequestError(),
+      ),
     };
   }
 }

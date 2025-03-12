@@ -16,31 +16,17 @@ class ErrorInterceptor extends Interceptor {
   ) async {
     if (_isConnectionError(err)) {
       log('Connection error');
-      return handler.next(
-        ConnectionException(
-          error: err,
-        ),
-      );
+      return handler.next(ConnectionException(error: err));
     }
 
     log('Dio error: ${err.response?.statusCode}');
 
-    return handler.next(
-      switch (err.response?.statusCode) {
-        null => OtherException(
-            error: err,
-          ),
-        401 => UnauthorizedException(
-            error: err,
-          ),
-        >= 400 && <= 500 => BackendException(
-            error: err,
-          ),
-        _ => OtherException(
-            error: err,
-          )
-      },
-    );
+    return handler.next(switch (err.response?.statusCode) {
+      null => OtherException(error: err),
+      401 => UnauthorizedException(error: err),
+      >= 400 && <= 500 => BackendException(error: err),
+      _ => OtherException(error: err),
+    });
   }
 
   bool _isConnectionError(DioException error) {

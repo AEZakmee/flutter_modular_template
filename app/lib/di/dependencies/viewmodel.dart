@@ -7,14 +7,8 @@ import '../locator.dart';
 
 void viewmodel() {
   locator
-
     ///Controllers
-    ..registerLazySingleton(
-      () => ThemeController(
-        themeService: locator(),
-      ),
-    )
-
+    ..registerLazySingleton(() => ThemeController(themeService: locator()))
     ///View models
     ..registerFactory(
       () => MainViewModel(
@@ -25,16 +19,8 @@ void viewmodel() {
         router: locator(),
       ),
     )
+    ..registerFactory(() => AuthViewModel(auth: locator(), router: locator()))
     ..registerFactory(
-      () => AuthViewModel(
-        auth: locator(),
-        router: locator(),
-      ),
-    )
-    ..registerFactory(
-      () => HomeViewModel(
-        themeController: locator(),
-        auth: locator(),
-      ),
+      () => HomeViewModel(themeController: locator(), auth: locator()),
     );
 }

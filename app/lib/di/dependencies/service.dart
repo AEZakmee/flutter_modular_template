@@ -7,21 +7,12 @@ import '../locator.dart';
 
 void service() {
   locator
-
     ///Services
+    ..registerLazySingleton(() => CacheService(settingsRepository: locator()))
+    ..registerLazySingleton(Auth.new)
     ..registerLazySingleton(
-      () => CacheService(
-        settingsRepository: locator(),
-      ),
-    )
-    ..registerLazySingleton(
-      Auth.new,
-    )
-    ..registerLazySingleton(
-      () => ThemeService(
-        settingsRepository: locator(),
-        cacheService: locator(),
-      ),
+      () =>
+          ThemeService(settingsRepository: locator(), cacheService: locator()),
     )
     ..registerLazySingleton(
       () => LocalizationService(

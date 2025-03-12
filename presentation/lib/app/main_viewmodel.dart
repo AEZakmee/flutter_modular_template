@@ -16,11 +16,11 @@ final class MainViewModel extends BaseViewModel {
     required CacheService cacheService,
     required Auth auth,
     required GoRouter router,
-  })  : _themeController = themeController,
-        _localizationService = localizationService,
-        _cacheService = cacheService,
-        _auth = auth,
-        _router = router;
+  }) : _themeController = themeController,
+       _localizationService = localizationService,
+       _cacheService = cacheService,
+       _auth = auth,
+       _router = router;
 
   final ThemeController _themeController;
   final LocalizationService _localizationService;
@@ -33,21 +33,30 @@ final class MainViewModel extends BaseViewModel {
 
   @override
   Future<void> init() async {
-    _localizationService.manager.stream().listen((event) {
-      event?.let((code) {
-        locale = Locale(code);
-        notifyListeners();
-      });
-    }).disposeWith(this);
+    _localizationService.manager
+        .stream()
+        .listen((event) {
+          event?.let((code) {
+            locale = Locale(code);
+            notifyListeners();
+          });
+        })
+        .disposeWith(this);
 
-    _themeController.observeBrightness().listen((brightness) {
-      this.brightness = brightness;
-      notifyListeners();
-    }).disposeWith(this);
+    _themeController
+        .observeBrightness()
+        .listen((brightness) {
+          this.brightness = brightness;
+          notifyListeners();
+        })
+        .disposeWith(this);
 
-    _auth.observeAuthenticated().listen((newAuthStatus) {
-      _router.refresh();
-    }).disposeWith(this);
+    _auth
+        .observeAuthenticated()
+        .listen((newAuthStatus) {
+          _router.refresh();
+        })
+        .disposeWith(this);
   }
 
   @override

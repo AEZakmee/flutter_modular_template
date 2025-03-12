@@ -4,9 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:domain/services/auth.dart';
 
 class UnauthorizedInterceptor extends Interceptor {
-  const UnauthorizedInterceptor({
-    required Auth auth,
-  }) : _auth = auth;
+  const UnauthorizedInterceptor({required Auth auth}) : _auth = auth;
 
   final Auth _auth;
 

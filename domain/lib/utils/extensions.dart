@@ -8,19 +8,19 @@ extension DataResponseExtension<T> on DataResponse<T> {
   }) {
     return switch (this) {
       SuccessfulDataResponse() => onSuccess(
-          (this as SuccessfulDataResponse).data as T,
-        ),
+        (this as SuccessfulDataResponse).data as T,
+      ),
       FailureDataResponse() => onError?.call(
-          (this as FailureDataResponse).error ?? GenericError(),
-        )
+        (this as FailureDataResponse).error ?? GenericError(),
+      ),
     };
   }
 
   DataResponse<R> mapData<R>(R Function(T data) mapper) {
     return switch (this) {
       SuccessfulDataResponse() => SuccessfulDataResponse<R>(
-          data: mapper((this as SuccessfulDataResponse).data as T),
-        ),
+        data: mapper((this as SuccessfulDataResponse).data as T),
+      ),
       FailureDataResponse() => this as FailureDataResponse<R>,
     };
   }
@@ -32,9 +32,7 @@ extension DataResponseExtension<T> on DataResponse<T> {
     };
   }
 
-  T safeUnfold({
-    required T defaultValue,
-  }) {
+  T safeUnfold({required T defaultValue}) {
     return switch (this) {
       SuccessfulDataResponse() => (this as SuccessfulDataResponse).data as T,
       FailureDataResponse() => defaultValue,

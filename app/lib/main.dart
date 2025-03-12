@@ -14,10 +14,7 @@ Future<void> main() async {
 
   await SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.edgeToEdge,
-    overlays: [
-      SystemUiOverlay.bottom,
-      SystemUiOverlay.top,
-    ],
+    overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top],
   );
 
   SystemChrome.setSystemUIOverlayStyle(
@@ -44,7 +41,5 @@ Future<void> main() async {
   setupRouter();
 
   FlutterNativeSplash.remove();
-  runApp(
-    const MyApp(),
-  );
+  runApp(const MyApp());
 }

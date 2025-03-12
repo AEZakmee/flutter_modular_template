@@ -15,19 +15,11 @@ Future<void> setupFirebase() async {
   locator
     ..registerLazySingleton(() => app)
     ..registerLazySingleton(
-      () => FirebaseRemoteConfig.instanceFor(
-        app: locator(),
-      ),
+      () => FirebaseRemoteConfig.instanceFor(app: locator()),
     )
+    ..registerLazySingleton(() => FirebaseAnalytics.instanceFor(app: locator()))
     ..registerLazySingleton(
-      () => FirebaseAnalytics.instanceFor(
-        app: locator(),
-      ),
-    )
-    ..registerLazySingleton(
-      () => RemoteConfig(
-        firebaseRemoteConfig: locator(),
-      ),
+      () => RemoteConfig(firebaseRemoteConfig: locator()),
     );
 
   await locator<FirebaseRemoteConfig>().setConfigSettings(

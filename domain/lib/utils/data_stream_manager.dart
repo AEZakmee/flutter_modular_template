@@ -4,10 +4,7 @@ import '../model/handler/data_response.dart';
 import 'base_stream_manager.dart';
 
 class DataStreamManager<T> implements BaseStreamManager {
-  DataStreamManager({
-    required this.fetchFunction,
-    this.hotObservable = true,
-  });
+  DataStreamManager({required this.fetchFunction, this.hotObservable = true});
 
   final Future<DataResponse<T>> Function() fetchFunction;
   final bool hotObservable;
