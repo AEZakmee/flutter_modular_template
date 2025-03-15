@@ -19,7 +19,7 @@ class {{name.pascalCase()}}Screen extends StatelessWidget {
           viewModel: viewModel,
           onEvent: (event) {
             event.when(
-              doSomething: () {},
+              somethingWentWrong: () {},
             );
           },
           child: {{name.pascalCase()}}Body(

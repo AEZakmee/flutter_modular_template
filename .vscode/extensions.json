@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "bracketpaircolordlw.bracket-pair-color-dlw",
+        "streetsidesoftware.code-spell-checker",
+        "dart-code.dart-code",
+        "hzgood.dart-data-class-generator",
+        "usernamehw.errorlens",
+        "dart-code.flutter",
+        "eamodio.gitlens",
+        "pkief.material-icon-theme",
+        "christian-kohler.path-intellisense",
+        "jeroen-meijer.pubspec-assist"
+    ]
+}

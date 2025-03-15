@@ -15,12 +15,13 @@ final class {{name.pascalCase()}}ViewModel extends StateViewModel<{{name.pascalC
   @override
   Future<void> submitAction({{name.pascalCase()}}Action action) async {
     action.when(
-      doSomething: _doSomething,
+      submit: _submit,
     );
   }
 
-  void _doSomething() {
-    submitEvent(const {{name.pascalCase()}}Event.doSomething());
+  void _submit() {
     updateState(state.copyWith(pending: true));
+    submitEvent(const {{name.pascalCase()}}Event.somethingWentWrong());
+    updateState(state.copyWith(pending: false));
   }
 }

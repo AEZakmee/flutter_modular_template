@@ -4,5 +4,5 @@ part '{{name.snakeCase()}}_action.freezed.dart';
 
 @freezed
 class {{name.pascalCase()}}Action with _${{name.pascalCase()}}Action {
-  const factory {{name.pascalCase()}}Action.doSomething() = _DoSomething;
+  const factory {{name.pascalCase()}}Action.submit() = _Submit;
 }
