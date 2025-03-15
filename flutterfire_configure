@@ -3,6 +3,7 @@
 read -p "Enter the Firebase project: " FIREBASE_PROJECT
 read -p "Enter android package name: " ANDROID_PACKAGE
 read -p "Enter ios bundle id: " IOS_BUNDLE
+read -p "Enter web app id: " WEB_APP_ID
 
 if ! command -v firebase &> /dev/null; then
     echo -e "Firebase tools not found. Installing..."
@@ -19,8 +20,8 @@ cd "$FLUTTER_ROOT_PACKAGE" || exit 1
 dart pub global activate flutterfire_cli 1.1.0
 
 flutterfire configure --project="${FIREBASE_PROJECT}" \
---token="${FIREBASE_TOKEN}" \
 --android-package-name="${ANDROID_PACKAGE}" \
 --ios-bundle-id="${IOS_BUNDLE}" \
---platforms=android,ios \
+--web-app-id="${WEB_APP_ID}" \
+--platforms=android,ios,web \
 --yes

@@ -1,0 +1,23 @@
+#!/bin/bash
+
+FIREBASE_PROJECT=${1}
+WEB_APP_ID=${2}
+FIREBASE_TOKEN=${3}
+
+if [ -z "$FIREBASE_PROJECT" ] || [ -z "$WEB_APP_ID" ] || [ -z "$FIREBASE_TOKEN" ]; then
+    echo "Usage: $0 <firebase_project> <web_app_id> <firebase_token>"
+    exit 1
+fi
+
+FLUTTER_ROOT_PACKAGE="$(./get_main_package)"
+cd "$FLUTTER_ROOT_PACKAGE" || exit 1
+
+dart pub global activate flutterfire_cli 1.1.0
+
+echo "Configuring Firebase..."
+flutterfire configure \
+--yes \
+--project="${FIREBASE_PROJECT}" \
+--token="${FIREBASE_TOKEN}" \
+--platforms=web \
+--web-app-id="${WEB_APP_ID}" \
