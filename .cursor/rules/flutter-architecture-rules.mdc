@@ -1,0 +1,310 @@
+---
+description: FLutter architecture rules
+globs: **
+alwaysApply: false
+---
+# Flutter Architecture Rules
+
+You are a senior Dart programmer with experience in the Flutter framework and a preference for clean architecture and design patterns.
+
+Generate code, corrections, and refactorings that comply with these architectural principles.
+
+## Project Structure
+
+### Module Organization
+The project follows a modular architecture with clear separation of concerns:
+
+```
+project/
+├── domain/          # Core business logic and models
+├── data/           # Data handling and external interfaces
+├── presentation/   # UI and state management
+└── app/           # Application entry and configuration. Dependency injection happens here
+```
+
+### Dependencies Flow
+- Domain has no external dependencies
+- Data depends only on domain
+- Presentation depends on domain
+- App depends on all modules
+  - In app we need to inject dependencies via locator.
+
+## Domain Layer
+
+### Models
+- Domain models are the models we use to comunicate trough data and presentation
+- Use sealed classes when it makes sense
+- Make models immutable with `final` fields
+- Use factory constructors for complex object creation
+- Define clear interfaces using abstract classes
+
+### Services
+- Define repository interfaces in domain layer in folder repositories
+- Keep services focused on single responsibility
+- Services should be stateless when possible
+- Make sure to return `DataResponse` from service methods if we are getting data from them
+- If we need to use stream in services, to notify multiple viewmodels for changes. Use `StreamManager` as the example below.
+
+```dart
+class ThemeService {
+  ThemeService({
+    required SettingsRepository settingsRepository,
+    required CacheService cacheService,
+  }) : _settingsRepository = settingsRepository {
+    manager = StreamManager<ThemeType>(
+      fetchFunction: settingsRepository.getThemeType,
+    );
+    cacheService.addManager(manager);
+  }
+
+  final SettingsRepository _settingsRepository;
+
+  late final StreamManager<ThemeType?> manager;
+
+  Future<void> switchTheme({required ThemeType currentTheme}) async {
+    final newTheme = switch (currentTheme) {
+      ThemeType.light => ThemeType.dark,
+      ThemeType.dark => ThemeType.light,
+    };
+    await _settingsRepository.updateThemeType(newTheme);
+    await manager.refetch();
+  }
+}
+```
+
+## Data Layer
+
+### Repositories
+- Implement domain repository interfaces
+- Handle data source selection (remote/local)
+- Map DTOs to domain models
+  - Create mappers in sepparate folder in the repository folder. Called mappers, use extension for them with `toDomain()`
+- Handle errors and wrap in `DataResponse`. Use `safeApiCall` when possible
+- Make sure methods in repositories returns `DataResponse` model
+- Example on repository methods:
+```dart
+  @override
+  Future<DataResponse<Model>> fetchSomeData() async {
+    final result = await _requestHandler.safeApiCall(
+      _apiClient.fetchSomeData,
+    );
+
+    return result.toDataResponse(
+      (data) => data.toDomain(),
+    );
+  }
+```
+
+### API
+
+- Use existing api clients if there is already one created that matches the feature. Otherwise create new one in the proper client setup.
+- Create response classes, use json serliazable to generate from and toJson methods. Response classes are returned to the repository and mapped there.
+- Example api client:
+```dart
+class SomeClient {
+  SomeClient({
+    required ApiRequests requests,
+  }) : _requests = requests;
+
+  final ApiRequests _requests;
+
+  Future<ModelResponse> fetchSomeData() async {
+    final data = await _requests.get(
+      '/v1/api-call',
+    );
+
+    return ModelResponse.fromJson(data);
+  }
+}
+```
+
+## Presentation Layer
+
+### State Management Pattern
+The project uses a ViewModel pattern with State-Action-Event architecture using Freezed:
+
+#### State
+- Represents UI state
+- Use Freezed for immutable state classes
+- Contains all data needed to render UI
+- Example:
+```dart
+@freezed
+class AuthState with _$AuthState {
+  const factory AuthState({
+    required bool isLoading,
+    required String? error,
+  }) = _AuthState;
+}
+```
+
+#### Actions
+- Represent user interactions or system events
+- Use Freezed unions for type-safe actions
+- Handled by ViewModel's submitAction method
+- Example:
+```dart
+@freezed
+sealed class AuthAction with _$AuthAction {
+  const factory AuthAction.logIn() = LogInAction;
+  const factory AuthAction.logOut() = LogOutAction;
+  const factory AuthAction.updateProfile({
+    required String name,
+    required String email,
+  }) = UpdateProfileAction;
+}
+```
+
+#### Events
+- One-time occurrences that affect UI
+- Use Freezed unions for type-safe events
+- Used forsnackbars, dialogs, etc.
+- Example:
+```dart
+@freezed
+sealed class AuthEvent with _$AuthEvent {
+  const factory AuthEvent.showError(String message) = ShowErrorEvent;
+  const factory AuthEvent.showSuccessMessage(String message) = ShowSuccessEvent;
+}
+```
+
+- Run code generation after modifying Freezed classes:
+```bash
+./run_build_runner_packages
+```
+
+### ViewModel
+- Extends `StateViewModel<State, Action, Event>`
+- Handles business logic and state updates
+- Uses pattern matching for action handling
+- Viewmodel have init and dispose methods. In init we can start stream listeners or fetch data.
+- When using streams, make sure to `.disposeWith(this)`
+- When the method returns DataResponse, use `.fold` to get access and failure, and handle it properly.
+- Example:
+```dart
+final class AuthViewModel extends StateViewModel<AuthState, AuthAction, AuthEvent> {
+  AuthViewModel({
+    required Auth auth,
+    required GoRouter router,
+    required ThemeService themeService,
+  }) : _auth = auth,
+       _router = router,
+       _themeService = themeService,
+       super(initialState: const AuthState());
+
+  final Auth _auth;
+  final GoRouter _router;
+  final ThemeService _themeService;
+
+   @override
+  Future<void> init() async {
+    _themeService
+        .observeBrightness()
+        .listen((brightness) {
+          updateState(state.copyWith(brightness: brightness))
+        })
+        .disposeWith(this);
+
+    final user = await getUser();
+    user.fold(
+      (user) => updateState(state.copyWith(user: user)),
+      (error) => submitEvent(const AuthEvent.showError()),
+    );
+  }
+
+  @override
+  Future<void> submitAction(AuthAction action) async {
+    await action.when(
+      logIn: _logIn,
+      logOut: _logOut,
+      updateProfile: _updateProfile,
+    );
+  }
+
+  Future<void> _logIn() async {
+    updateState(state.copyWith(isLoading: true));
+    final user = await _auth.signIn();
+    
+    if (user != null) {
+      _router.goNamed(Routes.defaultFor(user.role).name);
+    } else {
+      submitEvent(const AuthEvent.showError("Login failed"));
+    }
+    updateState(state.copyWith(isLoading: false));
+  }
+}
+```
+
+### Screens
+- Use ViewModels for state management. When creating screen use `ViewModelBuilder`, and inject the viewModel with locator.
+- Handle Events for UI updates. Events are handled with `ViewModelEventHandler`
+- Observe State for rebuilds
+- Example:
+```dart
+class SomeScreen extends StatelessWidget {
+  const SomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<SomeScreenViewModel>(
+      viewModelBuilder: locator,
+      builder:
+          (context, viewModel) => Scaffold(
+            body: ViewModelEventHandler<SomeScreenEvent>(
+              viewModel: viewModel,
+              onEvent: (event) {
+                event.when(somethingWentWrong: () {});
+              },
+              child: SomeScreendBody(submitAction: viewModel.submitAction),
+            ),
+          ),
+    );
+  }
+}
+```
+
+### Navigation
+- Use GoRouter for navigation and add routes in the routes dart file.
+
+## Dependency Injection
+
+### Service Location
+- Use GetIt for dependency injection
+- Register dependencies at app startup
+- Use factory for ViewModels
+- Use singleton for services
+- Inject every file in the proper di setup. Different setups for clients, repositories, services and viewmodels.
+
+## Code Style
+
+### Naming
+- PascalCase for classes and types
+- camelCase for methods and variables
+- snake_case for files
+- Prefix private members with _
+
+### File Organization
+- One primary class per file
+- Group related files in feature folders
+- Keep files focused and manageable
+- Use barrel files (index.dart) for public APIs
+
+## Best Practices
+
+### ViewModels
+- Keep ViewModels focused on single screen/component
+- Handle side effects in ViewModels
+- Use proper error handling
+- Clean up resources in dispose
+
+### Services
+- Keep services stateless when possible
+- Use streams for real-time updates
+- Handle errors gracefully
+- Document public APIs
+
+### Components
+- Keep widgets pure and reusable
+- Use proper widget keys
+- Handle edge cases (loading, error, empty states)
+- Document component APIs
