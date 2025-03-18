@@ -1,5 +1,5 @@
-import 'package:data/repository/handler/request_handler.dart';
-import 'package:data/repository/settings/settings_repository.dart';
+import 'package:data/repositories/handler/request_handler.dart';
+import 'package:data/repositories/settings/settings_repository.dart';
 import 'package:domain/repositories/settings_repository.dart';
 
 import '../locator.dart';

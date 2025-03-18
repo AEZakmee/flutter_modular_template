@@ -70,6 +70,22 @@ class ThemeService {
     await manager.refetch();
   }
 }
+
+//Use DataStreamManager if the type we are saving is of type DataResponse
+class UserService {
+  UserService({
+    required UserRepository userRepository,
+    required CacheService cacheService,
+  }) : _userRepository = userRepository {
+    manager = DataStreamManager<User>(fetchFunction: _userRepository.getUser);
+    cacheService.addManager(manager);
+  }
+
+  final UserRepository _userRepository;
+  late final DataStreamManager<User> manager;
+
+  Future<User?> fetchUser() => manager.fetch().then((value) => value.unfold());
+}
 ```
 
 ## Data Layer
